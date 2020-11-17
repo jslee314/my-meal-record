@@ -162,7 +162,7 @@ public class CameraActivity extends AppCompatActivity {
             if(allPermissionsGranted()){
                 startCamera();
             } else{
-                Toast. makeText (this, "사용자가 권한을 부여하지 않았습니다.", Toast.LENGTH_SHORT ) .show ();
+                Toast. makeText (this, "사용자가 권한을 부여하지 않았습니다.", Toast.LENGTH_SHORT).show();
                 this.finish ();
             }
         }

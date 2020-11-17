@@ -41,6 +41,8 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
+    implementation 'androidx.cardview:cardview:1.0.0'
+
 
     // for cameraX
     def camerax_version = "1.0.0-beta05"
