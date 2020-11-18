@@ -3,8 +3,11 @@ package com.example.iriscollectormobile;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.widget.Toast;
 
+import com.example.iriscollectormobile.data.SessionVariable;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -14,6 +17,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
@@ -36,10 +41,21 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mFirebaseAuth;    // 인증상태
     private FirebaseAuth.AuthStateListener mAuthStateListener;  // (리스너)사용자 인증상태가 변경될 때(로그인/아웃) 트리거됨
 
+//    /** ((realtime database))를 사용하기위한 2개의 클래스의 인스턴스 변수 선언 **/
+//    private FirebaseDatabase mFirebaseDatabase;             // 앱이 db 접근하기위한 진입점
+//    private DatabaseReference mMessageDatabaseReference;    // db 참조개체(db의 특정 부분을 참조하는 클래스)
+//    private ChildEventListener mChildEventListener;         // (리스너)사용자의 데이터가 변경될때 트리거됨 realtimeDatabase
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mFirebaseAuth = FirebaseAuth.getInstance();         // authentication관련 클래스의 인스턴스
+//        mFirebaseDatabase = FirebaseDatabase.getInstance(); // realtime db관련 클래스의 인스턴스
+
+//        mMessageDatabaseReference = mFirebaseDatabase.getReference().child("UserHistoryData");
+
 
         /** 네비게이션 관련 */
         BottomNavigationView navView = findViewById(R.id.nav_view);
@@ -52,8 +68,6 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navView, navController);
 
         /** 인증을 하기위한  **/
-        mFirebaseAuth = FirebaseAuth.getInstance();         // authentication관련 클래스의 인스턴스
-
         final List<AuthUI.IdpConfig> providers = Arrays.asList(
                 new AuthUI.IdpConfig.EmailBuilder().build(),
                 new AuthUI.IdpConfig.GoogleBuilder().build());
@@ -81,13 +95,17 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         };
+
+
     }
+
     @Override
     protected void onPause() {
         super.onPause();
         if(mAuthStateListener != null){
             mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
         }
+//        detachDatabaseReadListener();
     }
 
     @Override
@@ -114,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
 
     /** (CASE 1) :사용자가 로그인 한 경우 **/
     private void onSignedInInitialize(String username){
-//        mUsername = username;
+        SessionVariable.username = username;
 //        attachDatabaseReadListener();
     }
 
@@ -125,6 +143,50 @@ public class MainActivity extends AppCompatActivity {
 //        mMessageAdapter.clear();    // mMessageAdapter를 지우지 않으면 로그인,아웃할때 중복메시지가 나올수 있는 버그가 발생함
 //        detachDatabaseReadListener();
     }
+
+//    /**
+//     * 데이터베이스에 쓰기위해 Chlild 이벤트리스너 생성
+//     * @author 이재선
+//     * @date 2020-11-13 오전 11:03     **/
+//    private void attachDatabaseReadListener(){
+//        if (mChildEventListener == null) {
+//            mChildEventListener = new ChildEventListener() {
+//                @Override
+//                public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+////                    // 새 메시지가 삽입될때마다 호출. 리스너를 처음 연결할때 모든 Child 메시지에대해 이 메서드가 호출됨
+////                    FriendlyMessage friendlyMessage = snapshot.getValue(FriendlyMessage.class);
+////                    mMessageAdapter.add(friendlyMessage);
+//                }
+//                @Override
+//                public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+//                    // 기존 메시지의 내용이 변경될때 호출
+//                }
+//                @Override
+//                public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+//                    // 기존 메시지가 삭제될때 호출
+//                }
+//                @Override
+//                public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+//                    // 기존 메시지의 목록에서의 위치가 변경될때 호출
+//                }
+//                @Override
+//                public void onCancelled(@NonNull DatabaseError error) {
+//                    // 오류가 발행했을때 호출, 주로 권한이 없을때
+//                }
+//            };
+//            mMessageDatabaseReference.addChildEventListener(mChildEventListener); // 정확히 내가 뭘 듣고있는지 정의
+//        }
+//    }
+//    /**
+//     * Chlild 이벤트리스너 해지
+//     * @author 이재선
+//     * @date 2020-11-13 오전 11:04   **/
+//    private void detachDatabaseReadListener(){
+//        if(mChildEventListener != null){
+//            mMessageDatabaseReference.removeEventListener(mChildEventListener);
+//            mChildEventListener = null;
+//        }
+//    }
 
 
 }

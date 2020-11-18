@@ -16,22 +16,36 @@
         android:layout_marginEnd="8dp"
         android:textAlignment="center"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/camera_button"
+        app:layout_constraintBottom_toTopOf="@+id/camera_button_right"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/camera_button"
+        android:id="@+id/camera_button_left"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="camera"
+        android:text="Left Eye"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/camera_button_right"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_home"
         app:layout_constraintVertical_bias="0.562" />
+
+    <Button
+        android:id="@+id/camera_button_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Right Eye"
+        app:layout_constraintBottom_toBottomOf="@+id/camera_button_left"
+        app:layout_constraintTop_toTopOf="@+id/camera_button_left"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toEndOf="@+id/camera_button_left"
+        app:layout_constraintVertical_bias="0.562" />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
