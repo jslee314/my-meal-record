@@ -41,12 +41,10 @@ public class HomeFragment extends Fragment {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
-
             }
         });
 
         button1=root.findViewById(R.id.camera_button);
-
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

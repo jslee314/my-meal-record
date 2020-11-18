@@ -19,6 +19,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -35,7 +36,6 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 public class CameraActivity extends AppCompatActivity {
-
     private Executor executor = Executors.newSingleThreadExecutor();
     private int REQUEST_CODE_PERMISSIONS = 1001;
     private final String[] REQUIRED_PERMISSIONS = new String[]{"android.permission.CAMERA", "android.permission.WRITE_EXTERNAL_STORAGE"};
@@ -48,7 +48,9 @@ public class CameraActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
 
-        // Camera 권한 추가
+        mPreviewView = findViewById(R.id.previewView);
+        captureImage = findViewById(R.id.captureImg);
+
         if(allPermissionsGranted()){
             startCamera(); //start camera if permission has been granted by user
         } else{
@@ -57,38 +59,38 @@ public class CameraActivity extends AppCompatActivity {
 
     }
 
+
+
+
     private void startCamera() {
         final ListenableFuture<ProcessCameraProvider> cameraProviderFuture = ProcessCameraProvider.getInstance(this);
-
         cameraProviderFuture.addListener(new Runnable() {
             @Override
             public void run() {
                 try {
+
                     ProcessCameraProvider cameraProvider = cameraProviderFuture.get();
                     bindPreview(cameraProvider);
 
                 } catch (ExecutionException | InterruptedException e) {
-                    // No errors need to be handled for this Future.
-                    // This should never be reached.
+                    // No errors need to be handled for this Future. This should never be reached.
                 }
             }
         }, ContextCompat.getMainExecutor(this));
     }
 
     void bindPreview(@NonNull ProcessCameraProvider cameraProvider) {
-        /** 사진 촬영 전 이미지 미리보기에 관한 클래스*/
+
         Preview preview = new Preview.Builder()
                 .build();
-        /**  */
+
         CameraSelector cameraSelector = new CameraSelector.Builder()
                 .requireLensFacing(CameraSelector.LENS_FACING_BACK)
                 .build();
 
-        /** 머신 러닝과 같은 분석을 위해 CPU에서 액세스 할 수있는 버퍼를 제공*/
         ImageAnalysis imageAnalysis = new ImageAnalysis.Builder()
                 .build();
 
-        /**  사진을 캡처하고 저장하기에 관한 클래스 */
         ImageCapture.Builder builder = new ImageCapture.Builder();
 
         //Vendor-Extensions (The CameraX extensions dependency in build.gradle)
@@ -103,52 +105,52 @@ public class CameraActivity extends AppCompatActivity {
         final ImageCapture imageCapture = builder
                 .setTargetRotation(this.getWindowManager().getDefaultDisplay().getRotation())
                 .build();
+
         preview.setSurfaceProvider(mPreviewView.createSurfaceProvider());
+
         Camera camera = cameraProvider.bindToLifecycle((LifecycleOwner)this, cameraSelector, preview, imageAnalysis, imageCapture);
 
+        captureImage.setOnClickListener(v -> {
 
+            SimpleDateFormat mDateFormat = new SimpleDateFormat("yyyyMMddHHmmss", Locale.US);
+            File file = new File(getBatchDirectoryName(), mDateFormat.format(new Date())+ ".jpg");
 
-        captureImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                SimpleDateFormat mDateFormat = new SimpleDateFormat("yyyyMMddHHmmss", Locale.US);
-                File file = new File(getBatchDirectoryName(), mDateFormat.format(new Date())+ ".jpg");
-
-                ImageCapture.OutputFileOptions outputFileOptions = new ImageCapture.OutputFileOptions.Builder(file).build();
-                imageCapture.takePicture(outputFileOptions, executor, new ImageCapture.OnImageSavedCallback () {
-                    @Override
-                    public void onImageSaved(@NonNull ImageCapture.OutputFileResults outputFileResults) {
-                        new Handler().post(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(CameraActivity.this, "Image Saved successfully", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }
-                    @Override
-                    public void onError(@NonNull ImageCaptureException error) {
-                        error.printStackTrace();
-                    }
-                });
-            }
+            ImageCapture.OutputFileOptions outputFileOptions = new ImageCapture.OutputFileOptions.Builder(file).build();
+            imageCapture.takePicture(outputFileOptions, executor, new ImageCapture.OnImageSavedCallback () {
+                @Override
+                public void onImageSaved(@NonNull ImageCapture.OutputFileResults outputFileResults) {
+                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(CameraActivity.this, "Image Saved successfully", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+                @Override
+                public void onError(@NonNull ImageCaptureException error) {
+                    error.printStackTrace();
+                }
+            });
         });
     }
 
     public String getBatchDirectoryName() {
+
         String app_folder_path = "";
         app_folder_path = Environment.getExternalStorageDirectory().toString() + "/images";
         File dir = new File(app_folder_path);
         if (!dir.exists() && !dir.mkdirs()) {
+
         }
+
         return app_folder_path;
     }
-
     /**
      * 카메라 권한 추가
      * @author 이재선
      * @date 2020-11-17 오후 1:58   **/
     private boolean allPermissionsGranted(){
+
         for(String permission : REQUIRED_PERMISSIONS){
             if(ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED){
                 return false;
@@ -158,13 +160,15 @@ public class CameraActivity extends AppCompatActivity {
     }
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+
         if(requestCode == REQUEST_CODE_PERMISSIONS){
             if(allPermissionsGranted()){
                 startCamera();
             } else{
-                Toast. makeText (this, "사용자가 권한을 부여하지 않았습니다.", Toast.LENGTH_SHORT).show();
-                this.finish ();
+                Toast.makeText(this, "Permissions not granted by the user.", Toast.LENGTH_SHORT).show();
+                this.finish();
             }
         }
     }
+
 }
