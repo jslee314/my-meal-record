@@ -36,6 +36,8 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 public class CameraActivity extends AppCompatActivity {
+    private static final String TAG = "CameraActivity";
+
     private Executor executor = Executors.newSingleThreadExecutor();
     private int REQUEST_CODE_PERMISSIONS = 1001;
     private final String[] REQUIRED_PERMISSIONS = new String[]{"android.permission.CAMERA", "android.permission.WRITE_EXTERNAL_STORAGE"};
@@ -56,9 +58,7 @@ public class CameraActivity extends AppCompatActivity {
         } else{
             ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS);
         }
-
     }
-
 
 
 
@@ -68,7 +68,6 @@ public class CameraActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-
                     ProcessCameraProvider cameraProvider = cameraProviderFuture.get();
                     bindPreview(cameraProvider);
 
