@@ -24,7 +24,7 @@
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="50dp"
         android:layout_gravity="bottom"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
@@ -46,7 +46,7 @@
             app:cardCornerRadius="18dp">
 
             <ImageView
-                android:id="@+id/captureImg"
+                android:id="@+id/captureBtnImg"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:contentDescription="@string/capture"

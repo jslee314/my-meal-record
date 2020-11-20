@@ -25,6 +25,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
@@ -43,6 +47,10 @@ dependencies {
 
     implementation 'androidx.cardview:cardview:1.0.0'
 
+    // lombok
+    compileOnly 'org.projectlombok:lombok:1.18.12'
+    annotationProcessor 'org.projectlombok:lombok:1.18.12'
+
 
     // for cameraX
     def camerax_version = "1.0.0-beta05"
@@ -50,6 +58,7 @@ dependencies {
     implementation "androidx.camera:camera-lifecycle:${camerax_version}"    // If you want to additionally use the CameraX Lifecycle library
     implementation"androidx.camera:camera-view:1.0.0-alpha12"               // If you want to additionally use the CameraX View class
     implementation "androidx.camera:camera-extensions:1.0.0-alpha12"        // If you want to additionally use the CameraX Extensions library
+
 
     // firebase 관련
     implementation platform('com.google.firebase:firebase-bom:26.0.0')

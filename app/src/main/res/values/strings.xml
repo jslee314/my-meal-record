@@ -10,4 +10,10 @@
 
     <string name="preview_area">Preview Area</string>
     <string name="capture">Capture</string>
+
+    <string name="birthday">Birthday</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="prompt_email">Email</string>
+
 </resources>

@@ -1,31 +1,30 @@
 package com.example.iriscollectormobile;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Toast;
 
+import com.example.iriscollectormobile.Camera.CameraActivity;
+import com.example.iriscollectormobile.data.ConstantVariable;
 import com.example.iriscollectormobile.data.SessionVariable;
-import com.example.iriscollectormobile.data.UserHistory;
+import com.example.iriscollectormobile.databinding.ActivityMainBinding;
+import com.example.iriscollectormobile.ui.home.HomeFragment;
 import com.firebase.ui.auth.AuthUI;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -35,6 +34,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+    private MainViewModel mMainViewModel;
+    private ActivityMainBinding binding;
+
     private static final String TAG = "MainActivity";
     private static final int RC_SIGN_IN = 1;
 
@@ -45,19 +47,27 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
-        mFirebaseAuth = FirebaseAuth.getInstance();         // authentication관련 클래스의 인스턴스
+        mMainViewModel = obtainViewModel(this);
+        mFirebaseAuth = FirebaseAuth.getInstance();         // authentication 관련 클래스의 인스턴스
+
+        binding.setViewModel(mMainViewModel);
+        binding.setLifecycleOwner(this);
+
 
         /** 네비게이션 관련 */
         BottomNavigationView navView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each menu should be considered as top level destinations.
+
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)
                 .build();
+
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+
         NavigationUI.setupWithNavController(navView, navController);
+
 
         /** 인증을 하기위한  **/
         final List<AuthUI.IdpConfig> providers = Arrays.asList(
@@ -89,13 +99,13 @@ public class MainActivity extends AppCompatActivity {
         };
     }
 
+
     @Override
     protected void onPause() {
         super.onPause();
         if(mAuthStateListener != null){
             mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
         }
-//        detachDatabaseReadListener();
     }
 
     @Override
@@ -103,7 +113,6 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         mFirebaseAuth.addAuthStateListener(mAuthStateListener);
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -114,6 +123,13 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "로그인 성공!!", Toast.LENGTH_SHORT).show();
             } else if(resultCode == RESULT_CANCELED){
                 Toast.makeText(this, "로그인 실패 ㅜㅜ", Toast.LENGTH_SHORT).show();
+            }
+        }
+        /** CameraActivity 실행 후 사진 촬영 후 결과 반환에 따른 실행 */
+        if (requestCode == ConstantVariable.REQUEST_CAMERA) {
+            if (resultCode == RESULT_OK) {
+                Toast.makeText(this, "촬영 성공", Toast.LENGTH_SHORT).show();
+                mMainViewModel.getIrisImageBitmap().setValue(SessionVariable.irisImage);
             }
         }
     }
@@ -128,6 +144,16 @@ public class MainActivity extends AppCompatActivity {
 //        // user를 익명으로 바꾸고, 메시지(어뎁터)를 지우고, db데이터베이스와 연결된 이벤트 리스너 해지
 //        mUsername = ANONYMOUS;
 //        mMessageAdapter.clear();    // mMessageAdapter를 지우지 않으면 로그인,아웃할때 중복메시지가 나올수 있는 버그가 발생함
+    }
+
+    /**
+     * ViewModel 팩토리 객체를 생성 함수.
+     * @author 이재선
+     * @date 2020-11-19 오후 5:25   **/
+    @NonNull
+    public static MainViewModel obtainViewModel(FragmentActivity activity) {
+        ViewModelFactory factory = ViewModelFactory.getInstance(activity.getApplication());
+        return ViewModelProviders.of(activity, (ViewModelProvider.Factory) factory).get(MainViewModel.class);
     }
 
 

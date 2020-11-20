@@ -1,5 +1,10 @@
 package com.example.iriscollectormobile.data;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class UserHistory {
     private String username;
     private String irisSide;
@@ -13,35 +18,4 @@ public class UserHistory {
         this.acquisitionDate = acquisitionDate;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getIrisSide() {
-        return irisSide;
-    }
-
-    public void setIrisSide(String irisSide) {
-        this.irisSide = irisSide;
-    }
-
-    public String getIrisImageUrl() {
-        return irisImageUrl;
-    }
-
-    public void setIrisImageUrl(String irisImageUrl) {
-        this.irisImageUrl = irisImageUrl;
-    }
-
-    public String getAcquisitionDate() {
-        return acquisitionDate;
-    }
-
-    public void setAcquisitionDate(String acquisitionDate) {
-        this.acquisitionDate = acquisitionDate;
-    }
 }

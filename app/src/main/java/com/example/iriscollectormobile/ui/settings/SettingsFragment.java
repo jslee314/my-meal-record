@@ -1,4 +1,4 @@
-package com.example.iriscollectormobile.ui.notifications;
+package com.example.iriscollectormobile.ui.settings;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,19 +12,20 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.example.iriscollectormobile.MainViewModel;
 import com.example.iriscollectormobile.R;
 
-public class NotificationsFragment extends Fragment {
+public class SettingsFragment extends Fragment {
 
-    private NotificationsViewModel notificationsViewModel;
+    private MainViewModel mMainViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        notificationsViewModel =
-                ViewModelProviders.of(this).get(NotificationsViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_notifications, container, false);
-        final TextView textView = root.findViewById(R.id.text_notifications);
-        notificationsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        mMainViewModel =
+                ViewModelProviders.of(this).get(MainViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_settings, container, false);
+        final TextView textView = root.findViewById(R.id.text_settings);
+        mMainViewModel.getNotificationsText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
