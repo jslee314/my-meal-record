@@ -14,7 +14,9 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory{
     @SuppressLint("StaticFieldLeak")
     private static volatile ViewModelFactory INSTANCE;
     private Application mApplication;
-    public ViewModelFactory() {}
+    public ViewModelFactory() {
+        
+    }
     public ViewModelFactory(Application application) {
         mApplication = application;
     }

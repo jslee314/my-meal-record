@@ -1,11 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
-    <color name="colorAccent">#03DAC5</color>
+    <color name="colorPrimary">#607D8B</color>
+    <color name="colorPrimaryDark">#455A64</color>
+    <color name="colorPrimaryLight">#CFD8DC</color>
+    <color name="colorAccent">#00BCD4</color>
 
-    <color name="colorBasicText">#333333</color>
-    <color name="colorHighlight">#A1B800</color>
+    <color name="colorControlHighlight">#605D7B</color>
+
+    <color name="textColorPrimary">#212121</color>
+    <color name="textColorPrimarySecondary">#757575</color>
+
+    <color name="colorControlNormal">#FFFFFF</color>
+    <color name="divider">#BDBDBD</color>
+
+    <color name="navigationBarColor">#757575</color>
+
+<!--    <color name="colorPrimary">#6200EE</color>-->
+<!--    <color name="colorPrimaryDark">#3700B3</color>-->
+<!--    <color name="colorAccent">#03DAC5</color>-->
+
+    <!--        colorPrimary: 아플리케이션의 대표 색상입니다.-->
+    <!--        colorPrimaryDark: 대표 색상 중에 조금 더 어두운 색상입니다. 상태바 설정을 하지 않을시 colorPrimaryDark 로 적용됩니다.-->
+    <!--        colorAccent: 강조 색상 , 주 색상과 대비되는 색상을 지정합니다.-->
+    <!--        colorControlNormal: 컨트롤러(EditText, 체크박스, 라디오버튼, 프로그레스 바 등)에 사용합니다. 비활성 상태/선택한 상태 등이 아닌 '일반적인' 상태에 적용됩니다.-->
+    <!--        colorControlHighlight: 위젯을 터치 하거나 액션이 일어날때 나타나는 색상 입니다-->
+    <!--        android:navigationBarColor: 네비게이션 바 색상입니다. (API 21 에서부터 사용 가능 합니다.)-->
+
     <color name="colorIndicatorStroke">#F3F3F3</color>
     <color name="colorResultBorder">#E8E8E8</color>
     <color name="colorUnSelectedTabColor">#BBBBBB</color>

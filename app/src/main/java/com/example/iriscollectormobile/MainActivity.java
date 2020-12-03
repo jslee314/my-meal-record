@@ -2,15 +2,11 @@ package com.example.iriscollectormobile;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Toast;
 
-import com.example.iriscollectormobile.Camera.CameraActivity;
 import com.example.iriscollectormobile.data.ConstantVariable;
 import com.example.iriscollectormobile.data.SessionVariable;
 import com.example.iriscollectormobile.databinding.ActivityMainBinding;
-import com.example.iriscollectormobile.ui.home.HomeFragment;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,9 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;

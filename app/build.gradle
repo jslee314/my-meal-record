@@ -34,7 +34,6 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.google.android.material:material:1.2.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'androidx.vectordrawable:vectordrawable:1.1.0'
     implementation 'androidx.navigation:navigation-fragment:2.3.1'
@@ -47,10 +46,13 @@ dependencies {
 
     implementation 'androidx.cardview:cardview:1.0.0'
 
+    // material 디자인인
+    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'com.android.support:design:28.0.0'
+
     // lombok
     compileOnly 'org.projectlombok:lombok:1.18.12'
     annotationProcessor 'org.projectlombok:lombok:1.18.12'
-
 
     // for cameraX
     def camerax_version = "1.0.0-beta05"

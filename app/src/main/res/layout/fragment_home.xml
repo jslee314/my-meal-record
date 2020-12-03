@@ -61,26 +61,24 @@
             bind:setDefaultResourceId="@{R.drawable.no_image}"
             />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/camera_button_left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Left Eye"
             android:textSize="10sp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/button_capture_background"
             app:layout_constraintBottom_toTopOf="@+id/username"
             app:layout_constraintEnd_toStartOf="@+id/camera_button_right"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iris_img" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/camera_button_right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Right Eye"
             android:textSize="10sp"
-            android:background="@drawable/button_capture_background"
             app:layout_constraintBottom_toBottomOf="@+id/camera_button_left"
             app:layout_constraintTop_toTopOf="@+id/camera_button_left"
             app:layout_constraintEnd_toEndOf="parent"
@@ -88,14 +86,13 @@
 
 
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/submit_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="submit"
             android:textSize="15sp"
-            android:background="@drawable/button_next_disable_background"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/camera_button_left" />

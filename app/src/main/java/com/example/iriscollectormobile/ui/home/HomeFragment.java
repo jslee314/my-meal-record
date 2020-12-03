@@ -116,7 +116,6 @@ public class HomeFragment extends Fragment {
             public void onClick(View view) {
                 mSide = "right";
                 Intent intent = new Intent(getActivity(),CameraActivity.class);
-//                startActivity(intent);
                 startActivityForResult(intent, ConstantVariable.REQUEST_CAMERA);
             }
         });
@@ -185,9 +184,7 @@ public class HomeFragment extends Fragment {
 
         Log.d(TAG, "downloadFirebaseStorage  끝");
 
-
     }
-
 
 
 
