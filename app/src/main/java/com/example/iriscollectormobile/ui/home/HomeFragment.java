@@ -214,6 +214,7 @@ public class HomeFragment extends Fragment {
 //                    UserHistory userHistory = snapshot.getValue(UserHistory.class);
 //                    FriendlyMessage friendlyMessage = snapshot.getValue(FriendlyMessage.class);
 //                    mMessageAdapter.add(friendlyMessage);
+//                    mMainViewModel.getUserHistoryAdapter().getValue().add(userHistory);
                 }
                 @Override
                 public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {

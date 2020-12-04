@@ -75,12 +75,12 @@ public class MainActivity extends AppCompatActivity {
                 FirebaseUser user = firebaseAuth.getCurrentUser();  // 사용자가 로그인했는지 안했는지 체크
                 if(user != null){
                     // user가 로그인인 한 경우 -> 로그인 완료 토스트 띄움(완료 Activity 를 따로 만들어도 됨)
-                    //Toast.makeText(MainActivity.this, "로그인 완료, 환영합니다!!", Toast.LENGTH_SHORT).show();
-                    onSignedInInitialize(user.getDisplayName());
-
+                    Toast.makeText(MainActivity.this, "로그인 완료, 환영합니다!!", Toast.LENGTH_SHORT).show();
+                    mMainViewModel.setUserName(user.getDisplayName());
+                    mMainViewModel.onSignedInInitialize();
                 }else {
                     // user가 로그아웃한 경우 -> 로그인 로직 시작
-                    onSignedOutCleanup();
+                    mMainViewModel.onSignedOutCleanup();
                     startActivityForResult(
                             AuthUI.getInstance()
                                     .createSignInIntentBuilder()
@@ -100,6 +100,8 @@ public class MainActivity extends AppCompatActivity {
         if(mAuthStateListener != null){
             mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
         }
+//        mMainViewModel.getUserHistoryAdapter().getValue().clear();
+
     }
 
     @Override
@@ -114,31 +116,23 @@ public class MainActivity extends AppCompatActivity {
         /** AuthUI 로직 실행 후 결과 반환에 따른 실행 */
         if(requestCode == RC_SIGN_IN){
             if(resultCode == RESULT_OK){
-                Toast.makeText(this, "로그인 성공!!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "로그인 성공", Toast.LENGTH_SHORT).show();
             } else if(resultCode == RESULT_CANCELED){
-                Toast.makeText(this, "로그인 실패 ㅜㅜ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "로그인 실패", Toast.LENGTH_SHORT).show();
             }
         }
         /** CameraActivity 실행 후 사진 촬영 후 결과 반환에 따른 실행 */
         if (requestCode == ConstantVariable.REQUEST_CAMERA) {
             if (resultCode == RESULT_OK) {
                 Toast.makeText(this, "촬영 성공", Toast.LENGTH_SHORT).show();
-                mMainViewModel.getIrisImageBitmap().setValue(SessionVariable.irisImage);
+                mMainViewModel.getHomeIrisImageBitmap().setValue(SessionVariable.irisImage);
+            }else if(resultCode == RESULT_CANCELED){
+                Toast.makeText(this, "촬영 실패", Toast.LENGTH_SHORT).show();
             }
         }
     }
 
-    /** (CASE 1) :사용자가 로그인 한 경우 **/
-    private void onSignedInInitialize(String username){
-        SessionVariable.username = username;
-    }
 
-    /** (CASE 2) : 사용자가 로그아웃 한 경우 **/
-    private void onSignedOutCleanup(){
-//        // user를 익명으로 바꾸고, 메시지(어뎁터)를 지우고, db데이터베이스와 연결된 이벤트 리스너 해지
-//        mUsername = ANONYMOUS;
-//        mMessageAdapter.clear();    // mMessageAdapter를 지우지 않으면 로그인,아웃할때 중복메시지가 나올수 있는 버그가 발생함
-    }
 
     /**
      * ViewModel 팩토리 객체를 생성 함수.

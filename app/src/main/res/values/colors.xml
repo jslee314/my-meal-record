@@ -10,7 +10,7 @@
     <color name="textColorPrimary">#212121</color>
     <color name="textColorPrimarySecondary">#757575</color>
 
-    <color name="colorControlNormal">#FFFFFF</color>
+    <color name="colorControlNormal">#DDDDDD</color>
     <color name="divider">#BDBDBD</color>
 
     <color name="navigationBarColor">#757575</color>

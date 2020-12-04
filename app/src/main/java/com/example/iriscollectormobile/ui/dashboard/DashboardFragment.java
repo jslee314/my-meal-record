@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,34 +15,46 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.iriscollectormobile.MainViewModel;
 import com.example.iriscollectormobile.R;
-import com.firebase.ui.auth.AuthUI;
+import com.example.iriscollectormobile.data.UserHistory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DashboardFragment extends Fragment {
-    Button btnLogout;
     private MainViewModel mMainViewModel;
+
+    private TextView mTextView;
+
+    private ListView mUserHistoryListView;
+    private UserHistoryAdapter mUserHistoryAdapter;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         mMainViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
         View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
-        final TextView textView = root.findViewById(R.id.text_dashboard);
+
+        /** UI references 초기화 **/
+        mTextView = (TextView) root.findViewById(R.id.text_dashboard);
+        mUserHistoryListView = (ListView) root.findViewById(R.id.listView_userHistory);
+
+        // Initialize message ListView and its adapter
+        List<UserHistory> userHistories = new ArrayList<>();
+        mUserHistoryAdapter = new UserHistoryAdapter(getContext(), R.layout.item_userhistory, userHistories);
+//        mUserHistoryListView.setAdapter(mUserHistoryAdapter);
+        mMainViewModel.getUserHistoryAdapter().setValue(mUserHistoryAdapter);
+
         mMainViewModel.getDashboardText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
-
-        btnLogout=root.findViewById(R.id.camera_button_left);
-        btnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AuthUI.getInstance().signOut(getActivity().getApplicationContext()); // 로그아웃 처리 함수(AuthUI를 사용하는 provider로 로그인한 경우)
-
+                mTextView.setText(s);
             }
         });
 
 
         return root;
     }
+
+
+
 }

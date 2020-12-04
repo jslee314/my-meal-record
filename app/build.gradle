@@ -61,6 +61,9 @@ dependencies {
     implementation"androidx.camera:camera-view:1.0.0-alpha12"               // If you want to additionally use the CameraX View class
     implementation "androidx.camera:camera-extensions:1.0.0-alpha12"        // If you want to additionally use the CameraX Extensions library
 
+    // glide: 이미지 로딩 라이브라리
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
 
     // firebase 관련
     implementation platform('com.google.firebase:firebase-bom:26.0.0')
@@ -77,6 +80,8 @@ dependencies {
 
 
     implementation 'com.google.firebase:firebase-inappmessaging:18.0.0'   // 인앱 메시지
+
+
 
 
 }
