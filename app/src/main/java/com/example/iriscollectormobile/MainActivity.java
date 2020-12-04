@@ -34,20 +34,16 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     private static final int RC_SIGN_IN = 1;
 
-    /** ((authentication))을 사용하기위한 클래스의 인스턴스 변수 선언 **/
-    private FirebaseAuth mFirebaseAuth;    // 인증상태
-    private FirebaseAuth.AuthStateListener mAuthStateListener;  // (리스너)사용자 인증상태가 변경될 때(로그인/아웃) 트리거됨
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-
         mMainViewModel = obtainViewModel(this);
-        mFirebaseAuth = FirebaseAuth.getInstance();         // authentication 관련 클래스의 인스턴스
-
         binding.setViewModel(mMainViewModel);
         binding.setLifecycleOwner(this);
+
+        mMainViewModel.mFirebaseAuth = FirebaseAuth.getInstance();         // authentication 관련 클래스의 인스턴스
 
 
         /** 네비게이션 관련 */
@@ -69,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
                 new AuthUI.IdpConfig.GoogleBuilder().build());
 
         // 인증을 하기위한 이벤트 리스너 생성
-        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
+        mMainViewModel.mAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();  // 사용자가 로그인했는지 안했는지 체크
@@ -97,17 +93,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        if(mAuthStateListener != null){
-            mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
+        if(mMainViewModel.mAuthStateListener != null){
+            mMainViewModel.mFirebaseAuth.removeAuthStateListener(mMainViewModel.mAuthStateListener);
         }
 //        mMainViewModel.getUserHistoryAdapter().getValue().clear();
-
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        mFirebaseAuth.addAuthStateListener(mAuthStateListener);
+        mMainViewModel.mFirebaseAuth.addAuthStateListener(mMainViewModel.mAuthStateListener);
     }
 
     @Override

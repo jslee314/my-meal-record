@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.iriscollectormobile.data.SessionVariable;
 import com.example.iriscollectormobile.ui.dashboard.UserHistoryAdapter;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -43,6 +44,9 @@ public class MainViewModel extends AndroidViewModel {
 //    public FirebaseStorage mFirebaseStorage;
 //    public StorageReference mIrisPhogosStorageReference;
 
+    /** ((authentication))을 사용하기위한 클래스의 인스턴스 변수 선언 **/
+    public FirebaseAuth mFirebaseAuth;    // 인증상태
+    public FirebaseAuth.AuthStateListener mAuthStateListener;  // (리스너)사용자 인증상태가 변경될 때(로그인/아웃) 트리거됨
 
 
 

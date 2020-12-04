@@ -72,10 +72,10 @@ public class HomeFragment extends Fragment {
     Button mBtnSubmit;
     ImageView mImViewIris;
 
+    TextView textView;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        Log.d(TAG, "onCreateView");
-
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
 //        View root = inflater.inflate(R.layout.fragment_home, container, false);
         mMainViewModel = MainActivity.obtainViewModel(requireActivity());
@@ -89,7 +89,7 @@ public class HomeFragment extends Fragment {
         mUserHistoryDatabaseReference = mFirebaseDatabase.getReference().child("UserHistoryData");
         mIrisPhogosStorageReference = mFirebaseStorage.getReference().child("iris_photos");
 
-        final TextView textView = binding.textHome;
+        textView = binding.textHome;
         mMainViewModel.getHomeText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
@@ -99,13 +99,11 @@ public class HomeFragment extends Fragment {
 
 
         mBtnLeftEye = binding.cameraButtonLeft;
-//        mBtnLeftEye.setOnClickListener(getOnClickListener());
         mBtnLeftEye.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mSide = "left";
                 Intent intent = new Intent(getActivity(),CameraActivity.class);
-//                startActivity(intent);
                 startActivityForResult(intent, ConstantVariable.REQUEST_CAMERA);
             }
         });
