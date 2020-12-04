@@ -1,4 +1,4 @@
-package com.example.iriscollectormobile.ui.dashboard;
+package com.example.iriscollectormobile.data;
 
 import android.app.Activity;
 import android.content.Context;

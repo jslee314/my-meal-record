@@ -12,7 +12,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.settings.SettingsFragment">
+        tools:context=".ui.SettingsFragment">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/vertical_10per_guideline"

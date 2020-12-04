@@ -1,4 +1,4 @@
-package com.example.iriscollectormobile;
+package com.example.iriscollectormobile.util;
 
 import android.graphics.Bitmap;
 import android.widget.ImageView;

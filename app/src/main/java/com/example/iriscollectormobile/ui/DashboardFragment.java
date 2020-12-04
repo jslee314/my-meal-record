@@ -1,4 +1,4 @@
-package com.example.iriscollectormobile.ui.dashboard;
+package com.example.iriscollectormobile.ui;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,13 +12,13 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 
 import com.example.iriscollectormobile.MainActivity;
 import com.example.iriscollectormobile.MainViewModel;
 import com.example.iriscollectormobile.R;
 import com.example.iriscollectormobile.data.UserHistory;
 import com.example.iriscollectormobile.databinding.FragmentDashboardBinding;
+import com.example.iriscollectormobile.data.UserHistoryAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +43,7 @@ public class DashboardFragment extends Fragment {
         mTextView = binding.textDashboard;
         mUserHistoryListView = binding.listViewUserHistory;
 
+        mMainViewModel.initDashboardFragment();
 
         // Initialize message ListView and its adapter
         List<UserHistory> userHistories = new ArrayList<>();

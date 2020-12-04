@@ -7,6 +7,7 @@ import android.widget.Toast;
 import com.example.iriscollectormobile.data.ConstantVariable;
 import com.example.iriscollectormobile.data.SessionVariable;
 import com.example.iriscollectormobile.databinding.ActivityMainBinding;
+import com.example.iriscollectormobile.util.ViewModelFactory;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -71,7 +72,6 @@ public class MainActivity extends AppCompatActivity {
                 FirebaseUser user = firebaseAuth.getCurrentUser();  // 사용자가 로그인했는지 안했는지 체크
                 if(user != null){
                     // user가 로그인인 한 경우 -> 로그인 완료 토스트 띄움(완료 Activity 를 따로 만들어도 됨)
-                    Toast.makeText(MainActivity.this, "로그인 완료, 환영합니다!!", Toast.LENGTH_SHORT).show();
                     mMainViewModel.setUserName(user.getDisplayName());
                     mMainViewModel.onSignedInInitialize();
                 }else {
