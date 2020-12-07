@@ -110,7 +110,6 @@ public class HomeFragment extends Fragment {
 
         mImViewIris = binding.irisImg;
 
-        mViewModel.attachDatabaseReadListener();
         return binding.getRoot();
 
     }
@@ -122,11 +121,7 @@ public class HomeFragment extends Fragment {
         }
         super.onResume();
     }
-    @Override
-    public void onPause() {
-        super.onPause();
-        mViewModel.detachDatabaseReadListener();
-    }
+
 
     /**
      * 사진 파일을 Firebase Storage에 파일을 업로드

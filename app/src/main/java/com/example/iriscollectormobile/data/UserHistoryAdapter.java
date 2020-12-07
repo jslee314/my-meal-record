@@ -12,7 +12,6 @@ import androidx.annotation.NonNull;
 
 import com.bumptech.glide.Glide;
 import com.example.iriscollectormobile.R;
-import com.example.iriscollectormobile.data.UserHistory;
 import java.util.List;
 
 public class UserHistoryAdapter extends ArrayAdapter<UserHistory> {
@@ -29,7 +28,8 @@ public class UserHistoryAdapter extends ArrayAdapter<UserHistory> {
 
         ImageView photoImageView = (ImageView) convertView.findViewById(R.id.photoImageView);
         TextView dateTextView = (TextView) convertView.findViewById(R.id.dateTextView);
-        TextView authorTextView = (TextView) convertView.findViewById(R.id.nameTextView);
+        TextView nameTextView = (TextView) convertView.findViewById(R.id.nameTextView);
+        TextView sideTextView = (TextView) convertView.findViewById(R.id.sideTextView);
 
         UserHistory userHistory = getItem(position);
 
@@ -45,7 +45,8 @@ public class UserHistoryAdapter extends ArrayAdapter<UserHistory> {
             photoImageView.setVisibility(View.GONE);
             dateTextView.setText(userHistory.getAcquisitionDate());
         }
-        authorTextView.setText(userHistory.getUsername());
+        nameTextView.setText(userHistory.getUsername());
+        sideTextView.setText(userHistory.getIrisSide());
 
         return convertView;
     }

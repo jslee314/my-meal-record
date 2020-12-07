@@ -11,6 +11,9 @@ public class UserHistory {
     private String irisImageUrl;
     private String acquisitionDate;
 
+    public UserHistory() {
+    }
+
     public UserHistory(String username, String irisSide, String irisImageUrl, String acquisitionDate) {
         this.username = username;
         this.irisSide = irisSide;

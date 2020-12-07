@@ -3,6 +3,7 @@ package com.example.iriscollectormobile;
 import android.app.Application;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -34,10 +35,10 @@ public class MainViewModel extends AndroidViewModel {
     private MutableLiveData<String> settingsText;
 
     private MutableLiveData<Bitmap> homeIrisImageBitmap;
-    private MutableLiveData<UserHistoryAdapter> userHistoryAdapter;
 
     // User 관련 멤벼변수
     private String userName;
+    public UserHistoryAdapter userHistoryAdapter;
 
     // UserHistory 관련 멤버변수
     private String side;
@@ -66,7 +67,6 @@ public class MainViewModel extends AndroidViewModel {
         settingsText = new MutableLiveData<>();
 
         homeIrisImageBitmap = new MutableLiveData<>();
-        userHistoryAdapter = new MutableLiveData<>();
 
 
     }
@@ -91,13 +91,18 @@ public class MainViewModel extends AndroidViewModel {
 
 
     /** (CASE 1) :사용자가 로그인 한 경우 **/
-    public void onSignedInInitialize(){
+    public void onSignedInInitialize(String userName){
+        setUserName(userName);
+
+        attachDatabaseReadListener();
+
     }
     /** (CASE 2) : 사용자가 로그아웃 한 경우 **/
     public void onSignedOutCleanup(){
         // user를 익명으로 바꾸고, 메시지(어뎁터)를 지우고, db데이터베이스와 연결된 이벤트 리스너 해지
         userName = "anonymous";
-        getUserHistoryAdapter().getValue().clear();    // mMessageAdapter를 지우지 않으면 로그인,아웃할때 중복메시지가 나올수 있는 버그가 발생함
+        getUserHistoryAdapter().clear();    // mMessageAdapter를 지우지 않으면 로그인,아웃할때 중복메시지가 나올수 있는 버그가 발생함
+        detachDatabaseReadListener();
     }
 
     /**
@@ -110,10 +115,8 @@ public class MainViewModel extends AndroidViewModel {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                     // 새 메시지가 삽입될때마다 호출. 리스너를 처음 연결할때 모든 Child 메시지에대해 이 메서드가 호출됨
-//                    UserHistory userHistory = snapshot.getValue(UserHistory.class);
-//                    FriendlyMessage friendlyMessage = snapshot.getValue(FriendlyMessage.class);
-//                    mMessageAdapter.add(friendlyMessage);
-//                    mMainViewModel.getUserHistoryAdapter().getValue().add(userHistory);
+                    UserHistory userHistory = snapshot.getValue(UserHistory.class);
+                    getUserHistoryAdapter().add(userHistory);
                 }
                 @Override
                 public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
@@ -140,9 +143,9 @@ public class MainViewModel extends AndroidViewModel {
         mPhotoRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
-                UserHistory userHistory = new UserHistory(SessionVariable.username, getSide(), uri.toString(), null);
+                String side = getSide();
+                UserHistory userHistory = new UserHistory("test1", "side", uri.toString(), "2020.05.02");
                 mUserHistoryDatabaseReference.push().setValue(userHistory);
-                detachDatabaseReadListener();
 
             }
         }).addOnFailureListener(new OnFailureListener() {

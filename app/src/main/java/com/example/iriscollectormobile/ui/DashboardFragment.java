@@ -30,7 +30,6 @@ public class DashboardFragment extends Fragment {
 
     private TextView mTextView;
     private ListView mUserHistoryListView;
-    private UserHistoryAdapter mUserHistoryAdapter;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -38,18 +37,15 @@ public class DashboardFragment extends Fragment {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_dashboard, container, false);
         mMainViewModel =  MainActivity.obtainViewModel(requireActivity());
-        
+
         /** UI references 초기화 **/
         mTextView = binding.textDashboard;
         mUserHistoryListView = binding.listViewUserHistory;
+        mUserHistoryListView.setAdapter(mMainViewModel.getUserHistoryAdapter());
 
         mMainViewModel.initDashboardFragment();
 
-        // Initialize message ListView and its adapter
-        List<UserHistory> userHistories = new ArrayList<>();
-        mUserHistoryAdapter = new UserHistoryAdapter(getContext(), R.layout.item_userhistory, userHistories);
-//        mUserHistoryListView.setAdapter(mUserHistoryAdapter);
-        mMainViewModel.getUserHistoryAdapter().setValue(mUserHistoryAdapter);
+
 
         mMainViewModel.getDashboardText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override

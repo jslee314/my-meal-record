@@ -1,11 +1,15 @@
 package com.example.iriscollectormobile;
 
+import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.iriscollectormobile.data.ConstantVariable;
 import com.example.iriscollectormobile.data.SessionVariable;
+import com.example.iriscollectormobile.data.UserHistory;
+import com.example.iriscollectormobile.data.UserHistoryAdapter;
 import com.example.iriscollectormobile.databinding.ActivityMainBinding;
 import com.example.iriscollectormobile.util.ViewModelFactory;
 import com.firebase.ui.auth.AuthUI;
@@ -25,27 +29,30 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private MainViewModel mMainViewModel;
+    private MainViewModel mViewModel;
     private ActivityMainBinding binding;
 
     private static final String TAG = "MainActivity";
     private static final int RC_SIGN_IN = 1;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        mMainViewModel = obtainViewModel(this);
-        binding.setViewModel(mMainViewModel);
+        mViewModel = obtainViewModel(this);
+        binding.setViewModel(mViewModel);
         binding.setLifecycleOwner(this);
 
-        mMainViewModel.mFirebaseAuth = FirebaseAuth.getInstance();         // authentication 관련 클래스의 인스턴스
+        // authentication 관련 클래스의 인스턴스
+        mViewModel.mFirebaseAuth = FirebaseAuth.getInstance();
 
+        List<UserHistory> userHistories = new ArrayList<>();
+        mViewModel.userHistoryAdapter = new UserHistoryAdapter(this, R.layout.item_userhistory, userHistories);
 
         /** 네비게이션 관련 */
         BottomNavigationView navView = findViewById(R.id.nav_view);
@@ -59,6 +66,8 @@ public class MainActivity extends AppCompatActivity {
 
         NavigationUI.setupWithNavController(navView, navController);
 
+        // 액션바 숨기기
+        getSupportActionBar().hide();
 
         /** 인증을 하기위한  **/
         final List<AuthUI.IdpConfig> providers = Arrays.asList(
@@ -66,17 +75,16 @@ public class MainActivity extends AppCompatActivity {
                 new AuthUI.IdpConfig.GoogleBuilder().build());
 
         // 인증을 하기위한 이벤트 리스너 생성
-        mMainViewModel.mAuthStateListener = new FirebaseAuth.AuthStateListener() {
+        mViewModel.mAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();  // 사용자가 로그인했는지 안했는지 체크
                 if(user != null){
                     // user가 로그인인 한 경우 -> 로그인 완료 토스트 띄움(완료 Activity 를 따로 만들어도 됨)
-                    mMainViewModel.setUserName(user.getDisplayName());
-                    mMainViewModel.onSignedInInitialize();
+                    mViewModel.onSignedInInitialize(user.getDisplayName());
                 }else {
                     // user가 로그아웃한 경우 -> 로그인 로직 시작
-                    mMainViewModel.onSignedOutCleanup();
+                    mViewModel.onSignedOutCleanup();
                     startActivityForResult(
                             AuthUI.getInstance()
                                     .createSignInIntentBuilder()
@@ -89,20 +97,20 @@ public class MainActivity extends AppCompatActivity {
         };
     }
 
-
     @Override
     protected void onPause() {
         super.onPause();
-        if(mMainViewModel.mAuthStateListener != null){
-            mMainViewModel.mFirebaseAuth.removeAuthStateListener(mMainViewModel.mAuthStateListener);
+        if(mViewModel.mAuthStateListener != null){
+            mViewModel.mFirebaseAuth.removeAuthStateListener(mViewModel.mAuthStateListener);
         }
-//        mMainViewModel.getUserHistoryAdapter().getValue().clear();
+        mViewModel.detachDatabaseReadListener();
+        mViewModel.getUserHistoryAdapter().clear();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        mMainViewModel.mFirebaseAuth.addAuthStateListener(mMainViewModel.mAuthStateListener);
+        mViewModel.mFirebaseAuth.addAuthStateListener(mViewModel.mAuthStateListener);
     }
 
     @Override
@@ -120,14 +128,12 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == ConstantVariable.REQUEST_CAMERA) {
             if (resultCode == RESULT_OK) {
                 Toast.makeText(this, "촬영 성공", Toast.LENGTH_SHORT).show();
-                mMainViewModel.getHomeIrisImageBitmap().setValue(SessionVariable.irisImage);
+                mViewModel.getHomeIrisImageBitmap().setValue(SessionVariable.irisImage);
             }else if(resultCode == RESULT_CANCELED){
                 Toast.makeText(this, "촬영 실패", Toast.LENGTH_SHORT).show();
             }
         }
     }
-
-
 
     /**
      * ViewModel 팩토리 객체를 생성 함수.
