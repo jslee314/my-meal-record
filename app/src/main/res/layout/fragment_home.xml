@@ -21,7 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.1" />
+            app:layout_constraintGuide_percent="0.15" />
 
         <TextView
             android:id="@+id/text_home"
@@ -34,6 +34,7 @@
             android:textSize="15sp"
             app:layout_constraintBottom_toTopOf="@+id/vertical_10per_guideline"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <View
@@ -43,6 +44,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:background="@color/colorPatternItemGuideLine"
+            android:outlineSpotShadowColor="@color/colorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/vertical_10per_guideline"
@@ -52,51 +54,54 @@
             android:id="@+id/iris_img"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="10dp"
             app:layout_constraintDimensionRatio="4:3"
-            app:layout_constraintBottom_toTopOf="@+id/camera_button_left"
+            app:layout_constraintBottom_toTopOf="@+id/camera_button_side"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/vertical_10per_guideline"
+            app:layout_constraintTop_toBottomOf="@+id/vertical_10per_guideline_line"
             bind:setBitmap="@{viewModel.homeIrisImageBitmap}"
-            bind:setDefaultResourceId="@{R.drawable.no_image}"
-            />
+            bind:setDefaultResourceId="@{R.drawable.no_image}"/>
 
-        <com.google.android.material.button.MaterialButton
+        <com.google.android.material.button.MaterialButtonToggleGroup
+            android:id="@+id/camera_button_side"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:checkedButton="@id/camera_button_right"
+            app:layout_constraintBottom_toTopOf="@+id/submit_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iris_img"
+            app:singleSelection="true">
+        <Button
             android:id="@+id/camera_button_left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Left Eye"
-            android:textSize="10sp"
-            android:layout_marginTop="10dp"
-            app:layout_constraintBottom_toTopOf="@+id/username"
-            app:layout_constraintEnd_toStartOf="@+id/camera_button_right"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iris_img" />
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:text="LEFT EYE"
+            android:textSize="16dp" />
 
-        <com.google.android.material.button.MaterialButton
+        <Button
             android:id="@+id/camera_button_right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Right Eye"
-            android:textSize="10sp"
-            app:layout_constraintBottom_toBottomOf="@+id/camera_button_left"
-            app:layout_constraintTop_toTopOf="@+id/camera_button_left"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/camera_button_left" />
-
-
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:text="RIGHT EYE"
+            android:textSize="16dp" />
+    </com.google.android.material.button.MaterialButtonToggleGroup>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/submit_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"
             android:layout_marginTop="10dp"
             android:text="submit"
-            android:textSize="15sp"
+            android:textSize="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/camera_button_left" />
+            app:layout_constraintTop_toBottomOf="@+id/camera_button_side"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

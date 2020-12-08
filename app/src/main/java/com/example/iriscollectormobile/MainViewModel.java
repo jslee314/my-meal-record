@@ -33,17 +33,17 @@ public class MainViewModel extends AndroidViewModel {
     private MutableLiveData<String> homeText;
     private MutableLiveData<String> dashboardText;
     private MutableLiveData<String> settingsText;
-
     private MutableLiveData<Bitmap> homeIrisImageBitmap;
 
     // User 관련 멤벼변수
     private String userName;
-    public UserHistoryAdapter userHistoryAdapter;
 
     // UserHistory 관련 멤버변수
     private String side;
     private Bitmap irisBitmap;
     private Uri irisFirebaseStorageUri;
+    public UserHistoryAdapter userHistoryAdapter;
+
 
 
     /** ((authentication))을 사용하기위한 클래스의 인스턴스 변수 선언 **/
@@ -68,17 +68,9 @@ public class MainViewModel extends AndroidViewModel {
 
         homeIrisImageBitmap = new MutableLiveData<>();
 
+    }
 
-    }
-    public void initHomeFragment(){
-        homeText.setValue("홍채 촬영 후 'SUBMIT'클릭");
-    }
-    public void initDashboardFragment(){
-        dashboardText.setValue("This is dashboard fragment");
-    }
-    public void initSettingFragment(){
-        settingsText.setValue(userName + "님 개인정보를 추가 입력하세요");
-    }
+
     public void initFirebaseDatabase(){
         mFirebaseDatabase = FirebaseDatabase.getInstance();     // realtime db관련 클래스의 인스턴스
         mUserHistoryDatabaseReference = mFirebaseDatabase.getReference().child("UserHistoryData");

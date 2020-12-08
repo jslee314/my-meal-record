@@ -40,10 +40,7 @@ public class SettingsFragment extends Fragment {
                 textView.setText(s);
             }
         });
-        Log.d(TAG, "onCreate");
-
-        mViewModel.initSettingFragment();
-
+        mViewModel.getSettingsText().setValue(mViewModel.getUserName() + "님 개인정보를 추가 입력하세요");
         btnLogout=binding.btnLogout;
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -23,8 +23,7 @@
             android:textAlignment="center"
             android:textSize="20sp"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/listView_userHistory"
-            />
+            app:layout_constraintBottom_toTopOf="@+id/listView_userHistory"/>
 
         <ListView
             android:id="@+id/listView_userHistory"

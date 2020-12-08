@@ -16,16 +16,11 @@ import androidx.lifecycle.Observer;
 import com.example.iriscollectormobile.MainActivity;
 import com.example.iriscollectormobile.MainViewModel;
 import com.example.iriscollectormobile.R;
-import com.example.iriscollectormobile.data.UserHistory;
 import com.example.iriscollectormobile.databinding.FragmentDashboardBinding;
-import com.example.iriscollectormobile.data.UserHistoryAdapter;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class DashboardFragment extends Fragment {
     private static final String TAG = "DashboardFragment";
-    private MainViewModel mMainViewModel;
+    private MainViewModel mViewModel;
     private FragmentDashboardBinding binding;
 
     private TextView mTextView;
@@ -36,18 +31,16 @@ public class DashboardFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_dashboard, container, false);
-        mMainViewModel =  MainActivity.obtainViewModel(requireActivity());
+        mViewModel =  MainActivity.obtainViewModel(requireActivity());
 
         /** UI references 초기화 **/
         mTextView = binding.textDashboard;
+        mViewModel.getDashboardText().setValue("This is dashboard fragment");
+
         mUserHistoryListView = binding.listViewUserHistory;
-        mUserHistoryListView.setAdapter(mMainViewModel.getUserHistoryAdapter());
+        mUserHistoryListView.setAdapter(mViewModel.getUserHistoryAdapter());
 
-        mMainViewModel.initDashboardFragment();
-
-
-
-        mMainViewModel.getDashboardText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        mViewModel.getDashboardText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 mTextView.setText(s);

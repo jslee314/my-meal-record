@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -65,7 +66,7 @@ public class HomeFragment extends Fragment {
         binding.setViewModel(mViewModel);
         binding.setLifecycleOwner(requireActivity());
 
-        mViewModel.initHomeFragment();
+        mViewModel.getHomeText().setValue("홍채 촬영 후 'SUBMIT'클릭");
 
         mViewModel.initFirebaseDatabase();
         mViewModel.initFirebaseStorage();
@@ -103,11 +104,14 @@ public class HomeFragment extends Fragment {
         mBtnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(SessionVariable.irisImage==null){
+                    Toast.makeText(getContext(), "사진을 먼저 촬영하세요", Toast.LENGTH_LONG).show();
+                    return;
+                }
                 Uri irisUri = getImageUri(getActivity().getApplicationContext(), SessionVariable.irisImage);
                 uploadFirebaseStorage(irisUri);
             }
         });
-
         mImViewIris = binding.irisImg;
 
         return binding.getRoot();
