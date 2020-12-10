@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.se.omapi.Session;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,26 +22,18 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 
-import com.example.iriscollectormobile.Camera.CameraActivity;
+import com.example.iriscollectormobile.camera.CameraActivity;
 import com.example.iriscollectormobile.MainActivity;
 import com.example.iriscollectormobile.MainViewModel;
 import com.example.iriscollectormobile.R;
 import com.example.iriscollectormobile.data.ConstantVariable;
 import com.example.iriscollectormobile.data.SessionVariable;
-import com.example.iriscollectormobile.data.UserHistory;
 import com.example.iriscollectormobile.databinding.FragmentHomeBinding;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.util.Set;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -48,7 +41,6 @@ import lombok.Setter;
 @Setter
 @Getter
 public class HomeFragment extends Fragment {
-    private static final String TAG = "HomeFragment";
     private MainViewModel mViewModel;
     private FragmentHomeBinding binding;
 
@@ -84,7 +76,7 @@ public class HomeFragment extends Fragment {
         mBtnLeftEye.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mViewModel.setSide("left");
+                SessionVariable.side = "left";
                 Intent intent = new Intent(getActivity(),CameraActivity.class);
                 startActivityForResult(intent, ConstantVariable.REQUEST_CAMERA);
             }
@@ -94,7 +86,8 @@ public class HomeFragment extends Fragment {
         mBtnRightEye.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mViewModel.setSide("right");
+                SessionVariable.side = "right";
+
                 Intent intent = new Intent(getActivity(),CameraActivity.class);
                 startActivityForResult(intent, ConstantVariable.REQUEST_CAMERA);
             }
@@ -113,7 +106,6 @@ public class HomeFragment extends Fragment {
             }
         });
         mImViewIris = binding.irisImg;
-
         return binding.getRoot();
 
     }

@@ -3,6 +3,7 @@ package com.example.iriscollectormobile;
 import android.app.Application;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.util.Log;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
@@ -24,6 +25,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -39,7 +45,6 @@ public class MainViewModel extends AndroidViewModel {
     private String userName;
 
     // UserHistory 관련 멤버변수
-    private String side;
     private Bitmap irisBitmap;
     private Uri irisFirebaseStorageUri;
     public UserHistoryAdapter userHistoryAdapter;
@@ -135,8 +140,10 @@ public class MainViewModel extends AndroidViewModel {
         mPhotoRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
-                String side = getSide();
-                UserHistory userHistory = new UserHistory("test1", "side", uri.toString(), "2020.05.02");
+                SimpleDateFormat mDateFormat = new SimpleDateFormat("yyyy.MM.dd(HH:mm:ss)", Locale.KOREA);
+                String date =  mDateFormat.format(new Date());
+
+                UserHistory userHistory = new UserHistory(date, SessionVariable.side, uri.toString(), date);
                 mUserHistoryDatabaseReference.push().setValue(userHistory);
 
             }

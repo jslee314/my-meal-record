@@ -1,4 +1,4 @@
-package com.example.iriscollectormobile.Camera;
+package com.example.iriscollectormobile.camera;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,7 +14,11 @@ import androidx.camera.lifecycle.ProcessCameraProvider;
 import androidx.camera.view.PreviewView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -32,13 +36,11 @@ import com.example.iriscollectormobile.MainActivity;
 import com.example.iriscollectormobile.MainViewModel;
 import com.example.iriscollectormobile.R;
 import com.example.iriscollectormobile.data.SessionVariable;
+import com.example.iriscollectormobile.databinding.ActivityCameraBinding;
+import com.example.iriscollectormobile.util.ViewModelFactory;
 import com.google.common.util.concurrent.ListenableFuture;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.math.BigDecimal;
 import java.nio.ByteBuffer;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -47,8 +49,12 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
+
 public class CameraActivity extends AppCompatActivity {
     private static final String TAG = "CameraActivity";
+    private CameraViewModel mViewModel;
+    private ActivityCameraBinding binding;
+
     private Executor executor = Executors.newSingleThreadExecutor();
     private int REQUEST_CODE_PERMISSIONS = 1001;
     private final String[] REQUIRED_PERMISSIONS = new String[]{"android.permission.CAMERA", "android.permission.WRITE_EXTERNAL_STORAGE"};
@@ -60,9 +66,14 @@ public class CameraActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_camera);
+        mViewModel = obtainViewModel(this);
+        binding.setViewModel(mViewModel);
+        binding.setLifecycleOwner(this);
 
-        mPreviewView = findViewById(R.id.previewView);
-        mCaptureImage = findViewById(R.id.captureBtnImg);
+
+        mPreviewView = binding.previewView;
+        mCaptureImage = binding.captureBtnImg;
 
         if(allPermissionsGranted()){
             startCamera(); //start camera if permission has been granted by user
@@ -193,6 +204,15 @@ public class CameraActivity extends AppCompatActivity {
                 this.finish();
             }
         }
+    }
+    /**
+     * ViewModel 팩토리 객체를 생성 함수.
+     * @author 이재선
+     * @date 2020-11-19 오후 5:25   **/
+    @NonNull
+    public static CameraViewModel obtainViewModel(FragmentActivity activity) {
+        ViewModelFactory factory = ViewModelFactory.getInstance(activity.getApplication());
+        return ViewModelProviders.of(activity, (ViewModelProvider.Factory) factory).get(CameraViewModel.class);
     }
 
 }

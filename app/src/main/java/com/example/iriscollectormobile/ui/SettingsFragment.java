@@ -21,12 +21,11 @@ import com.example.iriscollectormobile.databinding.FragmentSettingsBinding;
 import com.firebase.ui.auth.AuthUI;
 
 public class SettingsFragment extends Fragment {
-    private static final String TAG = "SettingsFragment";
     private MainViewModel mViewModel;
+    private FragmentSettingsBinding binding;
 
     private TextView textView;
     private Button btnLogout;
-    private FragmentSettingsBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -40,7 +39,7 @@ public class SettingsFragment extends Fragment {
                 textView.setText(s);
             }
         });
-        mViewModel.getSettingsText().setValue(mViewModel.getUserName() + "님 개인정보를 추가 입력하세요");
+        mViewModel.getSettingsText().setValue(mViewModel.getUserName() + "님의 개인정보");
         btnLogout=binding.btnLogout;
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override

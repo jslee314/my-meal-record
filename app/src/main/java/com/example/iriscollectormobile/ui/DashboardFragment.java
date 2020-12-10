@@ -19,7 +19,6 @@ import com.example.iriscollectormobile.R;
 import com.example.iriscollectormobile.databinding.FragmentDashboardBinding;
 
 public class DashboardFragment extends Fragment {
-    private static final String TAG = "DashboardFragment";
     private MainViewModel mViewModel;
     private FragmentDashboardBinding binding;
 

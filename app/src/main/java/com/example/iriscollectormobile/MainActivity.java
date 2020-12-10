@@ -35,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
     private MainViewModel mViewModel;
     private ActivityMainBinding binding;
 
-    private static final String TAG = "MainActivity";
     private static final int RC_SIGN_IN = 1;
 
     @Override
@@ -117,18 +116,18 @@ public class MainActivity extends AppCompatActivity {
         /** AuthUI 로직 실행 후 결과 반환에 따른 실행 */
         if(requestCode == RC_SIGN_IN){
             if(resultCode == RESULT_OK){
-                Toast.makeText(this, "로그인 성공", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "로그인 성공", Toast.LENGTH_SHORT).show();
             } else if(resultCode == RESULT_CANCELED){
-                Toast.makeText(this, "로그인 실패", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "로그인 실패", Toast.LENGTH_SHORT).show();
             }
         }
         /** CameraActivity 실행 후 사진 촬영 후 결과 반환에 따른 실행 */
         if (requestCode == ConstantVariable.REQUEST_CAMERA) {
             if (resultCode == RESULT_OK) {
-                Toast.makeText(this, "촬영 성공", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "촬영 성공", Toast.LENGTH_SHORT).show();
                 mViewModel.getHomeIrisImageBitmap().setValue(SessionVariable.irisImage);
             }else if(resultCode == RESULT_CANCELED){
-                Toast.makeText(this, "촬영 실패", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "촬영 실패", Toast.LENGTH_SHORT).show();
             }
         }
     }

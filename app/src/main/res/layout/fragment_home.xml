@@ -17,28 +17,25 @@
         tools:context=".ui.HomeFragment">
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/vertical_10per_guideline"
+            android:id="@+id/vertical_title_guideline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.15" />
+            app:layout_constraintGuide_percent="0.12" />
 
         <TextView
             android:id="@+id/text_home"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="6dp"
             android:textAlignment="center"
-            android:textSize="15sp"
-            app:layout_constraintBottom_toTopOf="@+id/vertical_10per_guideline"
+            android:textSize="25dp"
+            app:layout_constraintBottom_toTopOf="@+id/vertical_title_guideline"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <View
-            android:id="@+id/vertical_10per_guideline_line"
+            android:id="@+id/title_line"
             android:layout_width="0dp"
             android:layout_height="2dp"
             android:layout_marginStart="20dp"
@@ -47,8 +44,7 @@
             android:outlineSpotShadowColor="@color/colorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/vertical_10per_guideline"
-            app:layout_constraintTop_toBottomOf="@+id/text_home" />
+            app:layout_constraintBottom_toTopOf="@+id/vertical_title_guideline" />
 
         <ImageView
             android:id="@+id/iris_img"
@@ -58,7 +54,7 @@
             app:layout_constraintBottom_toTopOf="@+id/camera_button_side"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/vertical_10per_guideline_line"
+            app:layout_constraintTop_toBottomOf="@+id/title_line"
             bind:setBitmap="@{viewModel.homeIrisImageBitmap}"
             bind:setDefaultResourceId="@{R.drawable.no_image}"/>
 
@@ -102,7 +98,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/camera_button_side"
             app:layout_constraintBottom_toBottomOf="parent"/>
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

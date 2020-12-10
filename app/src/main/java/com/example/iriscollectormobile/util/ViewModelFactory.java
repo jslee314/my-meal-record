@@ -6,8 +6,8 @@ import android.app.Application;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.iriscollectormobile.Camera.CameraActivity;
-import com.example.iriscollectormobile.Camera.CameraViewModel;
+import com.example.iriscollectormobile.camera.CameraActivity;
+import com.example.iriscollectormobile.camera.CameraViewModel;
 import com.example.iriscollectormobile.MainViewModel;
 
 public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory{
@@ -42,7 +42,7 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory{
     public <T extends ViewModel> T create(Class<T> modelClass) {
         if (modelClass.isAssignableFrom(MainViewModel.class)) {
             return (T) new MainViewModel(mApplication);
-        } else if (modelClass.isAssignableFrom(CameraActivity.class)) {
+        } else if (modelClass.isAssignableFrom(CameraViewModel.class)) {
             return (T) new CameraViewModel(mApplication);
         }
         throw new IllegalArgumentException("Unknown ViewModel class: " + modelClass.getName());

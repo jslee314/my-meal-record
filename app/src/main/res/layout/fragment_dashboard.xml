@@ -13,28 +13,50 @@
         android:layout_height="match_parent"
         tools:context=".ui.DashboardFragment">
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/vertical_title_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.12" />
+
         <TextView
             android:id="@+id/text_dashboard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="6dp"
             android:textAlignment="center"
-            android:textSize="20sp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/listView_userHistory"/>
+            android:textSize="25dp"
+            app:layout_constraintBottom_toTopOf="@+id/vertical_title_guideline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <View
+            android:id="@+id/title_line"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@color/colorPatternItemGuideLine"
+            android:outlineSpotShadowColor="@color/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/vertical_title_guideline" />
 
         <ListView
             android:id="@+id/listView_userHistory"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:layout_above="@+id/linearLayout"
-            android:stackFromBottom="true"
             android:divider="@android:color/transparent"
             android:transcriptMode="alwaysScroll"
             tools:listitem="@layout/item_userhistory"
-            app:layout_constraintTop_toBottomOf="@+id/text_dashboard"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title_line"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
