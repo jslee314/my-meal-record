@@ -45,7 +45,7 @@ public class UserHistoryAdapter extends ArrayAdapter<UserHistory> {
             photoImageView.setVisibility(View.GONE);
             dateTextView.setText(userHistory.getAcquisitionDate());
         }
-        nameTextView.setText(userHistory.getUsername());
+        nameTextView.setText(userHistory.getUserHistoryName());
         sideTextView.setText(userHistory.getIrisSide());
 
         return convertView;

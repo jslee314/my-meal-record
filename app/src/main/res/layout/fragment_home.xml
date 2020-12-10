@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="6dp"
             android:textAlignment="center"
-            android:textSize="25dp"
+            android:textSize="24dp"
             app:layout_constraintBottom_toTopOf="@+id/vertical_title_guideline"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -63,27 +63,57 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:checkedButton="@id/camera_button_right"
-            app:layout_constraintBottom_toTopOf="@+id/submit_button"
+            app:layout_constraintBottom_toTopOf="@+id/userHistoryName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iris_img"
             app:singleSelection="true">
-        <Button
-            android:id="@+id/camera_button_left"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:text="LEFT EYE"
-            android:textSize="16dp" />
+            <Button
+                android:id="@+id/camera_button_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:text="LEFT EYE"
+                android:textSize="16dp" />
 
-        <Button
-            android:id="@+id/camera_button_right"
-            android:layout_width="wrap_content"
+            <Button
+                android:id="@+id/camera_button_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:text="RIGHT EYE"
+                android:textSize="16dp" />
+        </com.google.android.material.button.MaterialButtonToggleGroup>
+
+        <EditText
+            android:id="@+id/userHistoryName"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:text="RIGHT EYE"
-            android:textSize="16dp" />
-    </com.google.android.material.button.MaterialButtonToggleGroup>
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:textSize="16dp"
+            android:hint="@string/prompt_name"
+            android:inputType="textPersonName"
+            android:selectAllOnFocus="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/userHistoryEmail"
+            app:layout_constraintTop_toBottomOf="@id/camera_button_side" />
+
+        <EditText
+            android:id="@+id/userHistoryEmail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:textSize="16dp"
+            android:hint="@string/prompt_email"
+            android:inputType="textEmailAddress"
+            android:selectAllOnFocus="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/submit_button"
+            app:layout_constraintTop_toBottomOf="@id/userHistoryName" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/submit_button"
@@ -96,7 +126,7 @@
             android:textSize="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/camera_button_side"
+            app:layout_constraintTop_toBottomOf="@+id/userHistoryEmail"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

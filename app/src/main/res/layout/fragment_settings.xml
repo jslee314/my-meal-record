@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="6dp"
             android:textAlignment="center"
-            android:textSize="25dp"
+            android:textSize="24dp"
             app:layout_constraintBottom_toTopOf="@+id/vertical_title_guideline"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"/>

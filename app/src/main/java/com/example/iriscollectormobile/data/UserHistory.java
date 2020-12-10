@@ -6,7 +6,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UserHistory {
-    private String username;
+    private String userHistoryName;
+    private String email;
     private String irisSide;
     private String irisImageUrl;
     private String acquisitionDate;
@@ -14,8 +15,9 @@ public class UserHistory {
     public UserHistory() {
     }
 
-    public UserHistory(String username, String irisSide, String irisImageUrl, String acquisitionDate) {
-        this.username = username;
+    public UserHistory(String userHistoryName, String email, String irisSide, String irisImageUrl, String acquisitionDate) {
+        this.userHistoryName = userHistoryName;
+        this.email = email;
         this.irisSide = irisSide;
         this.irisImageUrl = irisImageUrl;
         this.acquisitionDate = acquisitionDate;

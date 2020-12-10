@@ -6,12 +6,11 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.se.omapi.Session;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,7 +32,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
-import java.util.Set;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -44,11 +42,15 @@ public class HomeFragment extends Fragment {
     private MainViewModel mViewModel;
     private FragmentHomeBinding binding;
 
-    Button mBtnLeftEye;
-    Button mBtnRightEye;
-    Button mBtnSubmit;
-    ImageView mImViewIris;
-    TextView textView;
+    private TextView mTextView;
+    private ImageView mImViewIris;
+
+    private Button mBtnLeftEye;
+    private Button mBtnRightEye;
+    private Button mBtnSubmit;
+    private EditText mEditTextUserHistoryName;
+    private EditText mEditTextUserHistoryEmail;
+
     View.OnClickListener onClickListener;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -58,19 +60,17 @@ public class HomeFragment extends Fragment {
         binding.setViewModel(mViewModel);
         binding.setLifecycleOwner(requireActivity());
 
-        mViewModel.getHomeText().setValue("홍채 촬영 후 'SUBMIT'클릭");
-
         mViewModel.initFirebaseDatabase();
         mViewModel.initFirebaseStorage();
 
-        textView = binding.textHome;
+        mTextView = binding.textHome;
+        mViewModel.getHomeText().setValue("홍채 촬영 후 'SUBMIT'클릭");
         mViewModel.getHomeText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
-                textView.setText(s);
+                mTextView.setText(s);
             }
         });
-
 
         mBtnLeftEye = binding.cameraButtonLeft;
         mBtnLeftEye.setOnClickListener(new View.OnClickListener() {
@@ -106,8 +106,25 @@ public class HomeFragment extends Fragment {
             }
         });
         mImViewIris = binding.irisImg;
-        return binding.getRoot();
 
+        mEditTextUserHistoryName = binding.userHistoryName;
+        mViewModel.getUserHistoryName().setValue(mEditTextUserHistoryName.getText().toString());
+        mViewModel.getUserHistoryName().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(@Nullable String s) {
+                mEditTextUserHistoryName.setText(s);
+            }
+        });
+
+        mEditTextUserHistoryEmail = binding.userHistoryEmail;
+        mViewModel.getUserHistoryEmail().setValue(mEditTextUserHistoryName.getText().toString());
+        mViewModel.getUserHistoryEmail().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(@Nullable String s) {
+                mEditTextUserHistoryEmail.setText(s);
+            }
+        });
+        return binding.getRoot();
     }
 
     @Override
@@ -118,13 +135,12 @@ public class HomeFragment extends Fragment {
         super.onResume();
     }
 
-
     /**
      * 사진 파일을 Firebase Storage에 파일을 업로드
      * @author 이재선
      * @date 2020-11-20 오후 6:52   **/
     public void uploadFirebaseStorage(Uri irisUri){
-//        Uri irisUri = getImageUri(getActivity().getApplicationContext(), SessionVariable.irisImage);
+        // Uri irisUri = getImageUri(getActivity().getApplicationContext(), SessionVariable.irisImage);
         // chat_photos/<FILENAME>에 저장할 파일의 레퍼런스 가져옴
         mViewModel.mPhotoRef = mViewModel.mIrisPhogosStorageReference.child(irisUri.getLastPathSegment());
         // 파일을 Firebase Storage에 파일을 업로드 함
