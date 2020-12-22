@@ -10,7 +10,6 @@
             type="com.example.iriscollectormobile.camera.CameraViewModel"/>
     </data>
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -62,7 +61,6 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/ConstraintLayout"/>
 
-
             <ImageButton
                 android:background="@drawable/button_background"
                 android:id="@+id/minusRatio"
@@ -75,9 +73,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/ConstraintLayout"/>
-
-
-
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/captureBtnImg"
