@@ -20,50 +20,82 @@
             android:id="@+id/previewView"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginBottom="8dp"
             android:contentDescription="@string/preview_area"
             android:importantForAccessibility="no"
-            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ConstraintLayout"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_gravity="bottom"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal"
-            android:weightSum="3"
+            android:layout_height="100dp"
+            android:background="@color/background"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/previewView">
+            app:layout_constraintStart_toStartOf="parent">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/capture"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                app:cardBackgroundColor="#ffffff"
-                app:cardCornerRadius="18dp">
+            <TextView
+                android:id="@+id/ratioTV"
+                android:layout_gravity="center"
+                android:layout_width="80dp"
+                android:layout_height="20dp"
+                android:textColor="@android:color/white"
+                android:textSize="14dp"
+                android:text="1.0"
+                android:textAlignment="center"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/ConstraintLayout"/>
 
-                <ImageView
-                    android:id="@+id/captureBtnImg"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:contentDescription="@string/capture"
-                    android:src="@mipmap/ic_capture" />
+            <ImageButton
+                android:background="@drawable/button_background"
+                android:id="@+id/plusRatio"
+                android:theme="@style/AppTheme.WhiteRipple"
+                android:foreground="?selectableItemBackground"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_plus"
+                app:layout_constraintEnd_toStartOf="@+id/captureBtnImg"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/ConstraintLayout"/>
 
-            </androidx.cardview.widget.CardView>
 
-        </LinearLayout>
+            <ImageButton
+                android:background="@drawable/button_background"
+                android:id="@+id/minusRatio"
+                android:theme="@style/AppTheme.WhiteRipple"
+                android:foreground="?selectableItemBackground"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_minus"
+                app:layout_constraintStart_toEndOf="@+id/captureBtnImg"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/ConstraintLayout"/>
 
 
+
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/captureBtnImg"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="8dp"
+                android:elevation="6dp"
+                android:scaleType="center"
+                android:alpha="0.6"
+                app:rippleColor="@color/colorPrimaryLight"
+                android:src="@drawable/ic_menu_camera"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ratioTV"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

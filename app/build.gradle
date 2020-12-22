@@ -55,11 +55,12 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.12'
 
     // for cameraX
-    def camerax_version = "1.0.0-beta05"
+    def camerax_version = "1.0.0-beta12"
+    implementation "androidx.camera:camera-core:${camerax_version}"
     implementation "androidx.camera:camera-camera2:${camerax_version}"
     implementation "androidx.camera:camera-lifecycle:${camerax_version}"    // If you want to additionally use the CameraX Lifecycle library
-    implementation"androidx.camera:camera-view:1.0.0-alpha12"               // If you want to additionally use the CameraX View class
-    implementation "androidx.camera:camera-extensions:1.0.0-alpha12"        // If you want to additionally use the CameraX Extensions library
+    implementation "androidx.camera:camera-view:1.0.0-alpha19"               // If you want to additionally use the CameraX View class
+    implementation "androidx.camera:camera-extensions:1.0.0-alpha19"
 
     // glide: 이미지 로딩 라이브라리
     implementation 'com.github.bumptech.glide:glide:4.9.0'

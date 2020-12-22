@@ -1,19 +1,28 @@
 package com.example.iriscollectormobile.camera;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.camera.core.Camera;
+import androidx.camera.core.CameraControl;
+import androidx.camera.core.CameraInfo;
 import androidx.camera.core.CameraSelector;
+import androidx.camera.core.FocusMeteringAction;
 import androidx.camera.core.ImageAnalysis;
 import androidx.camera.core.ImageCapture;
 import androidx.camera.core.ImageCaptureException;
 import androidx.camera.core.ImageProxy;
+import androidx.camera.core.MeteringPoint;
+import androidx.camera.core.MeteringPointFactory;
 import androidx.camera.core.Preview;
+import androidx.camera.core.impl.utils.futures.FutureCallback;
+import androidx.camera.core.impl.utils.futures.Futures;
 import androidx.camera.extensions.HdrImageCaptureExtender;
 import androidx.camera.lifecycle.ProcessCameraProvider;
 import androidx.camera.view.PreviewView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.math.MathUtils;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.LifecycleOwner;
@@ -29,7 +38,11 @@ import android.os.Environment;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.iriscollectormobile.MainActivity;
@@ -38,6 +51,7 @@ import com.example.iriscollectormobile.R;
 import com.example.iriscollectormobile.data.SessionVariable;
 import com.example.iriscollectormobile.databinding.ActivityCameraBinding;
 import com.example.iriscollectormobile.util.ViewModelFactory;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.common.util.concurrent.ListenableFuture;
 
 import java.io.File;
@@ -60,7 +74,13 @@ public class CameraActivity extends AppCompatActivity {
     private final String[] REQUIRED_PERMISSIONS = new String[]{"android.permission.CAMERA", "android.permission.WRITE_EXTERNAL_STORAGE"};
 
     PreviewView mPreviewView;
-    ImageView mCaptureImage;
+    FloatingActionButton mCaptureButton;
+    TextView mZoomRatioLabel;
+    ImageButton mPlusEV;
+    ImageButton mDecEV;
+    Camera camera;
+    CameraInfo cameraInfo;
+    CameraControl cameraControl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,15 +91,23 @@ public class CameraActivity extends AppCompatActivity {
         binding.setViewModel(mViewModel);
         binding.setLifecycleOwner(this);
 
-
         mPreviewView = binding.previewView;
-        mCaptureImage = binding.captureBtnImg;
+        mCaptureButton = binding.captureBtnImg;
 
         if(allPermissionsGranted()){
             startCamera(); //start camera if permission has been granted by user
         } else{
             ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS);
         }
+
+        /** 카메라 배율 조정 관련 */
+        mZoomRatioLabel = binding.ratioTV;
+        mPlusEV = binding.plusRatio;
+        mDecEV = binding.minusRatio;
+
+        // 액션바 숨기기
+        getSupportActionBar().hide();
+
     }
 
 
@@ -104,7 +132,7 @@ public class CameraActivity extends AppCompatActivity {
     void bindPreview(@NonNull ProcessCameraProvider cameraProvider) {
 
         Preview preview = new Preview.Builder().build();
-        preview.setSurfaceProvider(mPreviewView.createSurfaceProvider());
+        preview.setSurfaceProvider(mPreviewView.getSurfaceProvider());
 
         ImageCapture.Builder builder = new ImageCapture.Builder();  // 사진 촬영 관련
         final ImageCapture imageCapture = builder.setTargetRotation(this.getWindowManager().getDefaultDisplay().getRotation()).build();
@@ -117,10 +145,89 @@ public class CameraActivity extends AppCompatActivity {
             hdrImageCaptureExtender.enableExtension(cameraSelector);
         }
 
-        Camera camera = cameraProvider.bindToLifecycle((LifecycleOwner)this, cameraSelector, preview, imageAnalysis, imageCapture);
+        // Attach use cases to the camera with the same lifecycle owner
+        camera = cameraProvider.bindToLifecycle((LifecycleOwner)this, cameraSelector, preview, imageAnalysis, imageCapture);
+
+        cameraInfo = camera.getCameraInfo();
+        cameraControl = camera.getCameraControl();
+
+
+        /** 카메라 가운데 초점 */
+        MeteringPointFactory factory = mPreviewView.getMeteringPointFactory();
+        int centerWidth = mPreviewView.getWidth()/2;
+        int centerHeight = mPreviewView.getHeight()/2;
+
+        MeteringPoint point = factory.createPoint(centerWidth,centerHeight);
+
+        FocusMeteringAction action =  new FocusMeteringAction.Builder(point).build();
+        cameraControl.startFocusAndMetering(action);
+
+
+
+        /** 카메라 Zoom 조정 : (+) 버튼 클릭시 화면 Zoom 높임 */
+        mPlusEV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                // 현재 비율을 받아옴
+                float zoomRatio = cameraInfo.getZoomState().getValue().getZoomRatio();
+
+                // 비율 높임
+                float newZoom = zoomRatio + 0.05f;
+
+                // 텍스트뷰에 업데이트
+                mZoomRatioLabel.setText(String.format("%.2f", newZoom));
+
+                float clampedNewZoom = MathUtils.clamp(newZoom,
+                        cameraInfo.getZoomState().getValue().getMinZoomRatio(),
+                        cameraInfo.getZoomState().getValue().getMaxZoomRatio());
+
+                ListenableFuture<Void> listenableFuture = cameraControl.setZoomRatio(clampedNewZoom);
+                Futures.addCallback(listenableFuture, new FutureCallback<Void>() {
+                    @Override
+                    public void onSuccess(@Nullable Void result) {
+                        Log.d(TAG, "setZoomRatio onSuccess: " + clampedNewZoom);
+                    }
+                    @Override
+                    public void onFailure(Throwable t) {
+                        Log.d(TAG, "setZoomRatio failed, " + t);
+                    }
+                }, ContextCompat.getMainExecutor(CameraActivity.this));
+            }
+        });
+
+        /** 카메라 Zoom 조정 : (-) 버튼 클릭시 화면 Zoom 높임 */
+        mDecEV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // 현재 비율을 받아옴
+                float zoomRatio = cameraInfo.getZoomState().getValue().getZoomRatio();
+                // 비율 높임
+                float newZoom = zoomRatio - 0.05f;
+
+                // 텍스트뷰에 업데이트
+                mZoomRatioLabel.setText(String.format("%.2f", newZoom));
+
+                float clampedNewZoom = MathUtils.clamp(newZoom,
+                        cameraInfo.getZoomState().getValue().getMinZoomRatio(),
+                        cameraInfo.getZoomState().getValue().getMaxZoomRatio());
+
+                ListenableFuture<Void> listenableFuture = cameraControl.setZoomRatio(clampedNewZoom);
+                Futures.addCallback(listenableFuture, new FutureCallback<Void>() {
+                    @Override
+                    public void onSuccess(@Nullable Void result) {
+                        Log.d(TAG, "setZoomRatio onSuccess: " + clampedNewZoom);
+                    }
+                    @Override
+                    public void onFailure(Throwable t) {
+                        Log.d(TAG, "setZoomRatio failed, " + t);
+                    }
+                }, ContextCompat.getMainExecutor(CameraActivity.this));
+            }
+        });
 
         /** 캡쳐 이미지 버튼이 눌렀을때 실행되는 리스너 */
-        mCaptureImage.setOnClickListener(v -> {
+        mCaptureButton.setOnClickListener(v -> {
 
             // 1.캡처된 이미지의 메모리 내 버퍼를 제공 : takePicture(Executor, OnImageCapturedCallback)
             imageCapture.takePicture(executor, new ImageCapture.OnImageCapturedCallback() {
