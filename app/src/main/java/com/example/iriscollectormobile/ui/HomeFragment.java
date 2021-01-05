@@ -64,7 +64,7 @@ public class HomeFragment extends Fragment {
         mViewModel.initFirebaseStorage();
 
         mTextView = binding.textHome;
-        mViewModel.getHomeText().setValue("홍채 촬영 후 'SUBMIT'클릭");
+        mViewModel.getHomeText().setValue("홍채 촬영 후 'SUBMIT'클릭"); // commit test
         mViewModel.getHomeText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
