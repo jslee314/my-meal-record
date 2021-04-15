@@ -32,11 +32,7 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory{
 
 
     /**
-     * @작성자 : 길용현
-     * @최초작성일 : 2019-09-03 오후 5:57
-     * @내용 : 요청들어온 modelClass 에 맞는 ViewModel 객체를 생성해서 리턴시켜주는 함수 (싱글톤으로 처리)
-     * @수정 :
-     * @버젼 : 1.0.0
+     * 요청들어온 modelClass 에 맞는 ViewModel 객체를 생성해서 리턴시켜주는 함수 (싱글톤으로 처리)
      **/
     @Override
     public <T extends ViewModel> T create(Class<T> modelClass) {
