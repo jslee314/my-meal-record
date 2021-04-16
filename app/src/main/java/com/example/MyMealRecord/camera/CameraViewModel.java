@@ -1,4 +1,4 @@
-package com.example.iriscollectormobile.camera;
+package com.example.MyMealRecord.camera;
 
 import android.app.Application;
 

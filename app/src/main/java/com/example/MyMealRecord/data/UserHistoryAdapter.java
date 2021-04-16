@@ -1,4 +1,4 @@
-package com.example.iriscollectormobile.data;
+package com.example.MyMealRecord.data;
 
 import android.app.Activity;
 import android.content.Context;
@@ -11,7 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.bumptech.glide.Glide;
-import com.example.iriscollectormobile.R;
+import com.example.MyMealRecord.R;
 import java.util.List;
 
 public class UserHistoryAdapter extends ArrayAdapter<UserHistory> {

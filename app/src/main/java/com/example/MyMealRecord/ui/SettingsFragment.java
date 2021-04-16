@@ -1,7 +1,6 @@
-package com.example.iriscollectormobile.ui;
+package com.example.MyMealRecord.ui;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,10 +13,10 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 
-import com.example.iriscollectormobile.MainActivity;
-import com.example.iriscollectormobile.MainViewModel;
-import com.example.iriscollectormobile.R;
-import com.example.iriscollectormobile.databinding.FragmentSettingsBinding;
+import com.example.MyMealRecord.MainActivity;
+import com.example.MyMealRecord.MainViewModel;
+import com.example.MyMealRecord.R;
+import com.example.MyMealRecord.databinding.FragmentSettingsBinding;
 import com.firebase.ui.auth.AuthUI;
 
 public class SettingsFragment extends Fragment {

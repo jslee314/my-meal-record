@@ -1,4 +1,4 @@
-package com.example.iriscollectormobile.util;
+package com.example.MyMealRecord.util;
 
 import android.annotation.SuppressLint;
 import android.app.Application;
@@ -6,9 +6,8 @@ import android.app.Application;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.iriscollectormobile.camera.CameraActivity;
-import com.example.iriscollectormobile.camera.CameraViewModel;
-import com.example.iriscollectormobile.MainViewModel;
+import com.example.MyMealRecord.camera.CameraViewModel;
+import com.example.MyMealRecord.MainViewModel;
 
 public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory{
 

@@ -1,4 +1,4 @@
-package com.example.iriscollectormobile;
+package com.example.MyMealRecord;
 
 import android.app.Application;
 import android.graphics.Bitmap;
@@ -10,9 +10,9 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.iriscollectormobile.data.SessionVariable;
-import com.example.iriscollectormobile.data.UserHistory;
-import com.example.iriscollectormobile.data.UserHistoryAdapter;
+import com.example.MyMealRecord.data.SessionVariable;
+import com.example.MyMealRecord.data.UserHistory;
+import com.example.MyMealRecord.data.UserHistoryAdapter;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;

@@ -1,4 +1,4 @@
-package com.example.iriscollectormobile.ui;
+package com.example.MyMealRecord.ui;
 
 import android.content.Context;
 import android.content.Intent;
@@ -21,13 +21,13 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 
-import com.example.iriscollectormobile.camera.CameraActivity;
-import com.example.iriscollectormobile.MainActivity;
-import com.example.iriscollectormobile.MainViewModel;
-import com.example.iriscollectormobile.R;
-import com.example.iriscollectormobile.data.ConstantVariable;
-import com.example.iriscollectormobile.data.SessionVariable;
-import com.example.iriscollectormobile.databinding.FragmentHomeBinding;
+import com.example.MyMealRecord.camera.CameraActivity;
+import com.example.MyMealRecord.MainActivity;
+import com.example.MyMealRecord.MainViewModel;
+import com.example.MyMealRecord.R;
+import com.example.MyMealRecord.data.ConstantVariable;
+import com.example.MyMealRecord.data.SessionVariable;
+import com.example.MyMealRecord.databinding.FragmentHomeBinding;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.UploadTask;
 

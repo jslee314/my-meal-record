@@ -1,4 +1,4 @@
-package com.example.iriscollectormobile.data;
+package com.example.MyMealRecord.data;
 
 import lombok.Getter;
 import lombok.Setter;

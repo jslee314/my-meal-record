@@ -1,4 +1,4 @@
-package com.example.iriscollectormobile.camera;
+package com.example.MyMealRecord.camera;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -41,16 +41,14 @@ import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.iriscollectormobile.MainActivity;
-import com.example.iriscollectormobile.MainViewModel;
-import com.example.iriscollectormobile.R;
-import com.example.iriscollectormobile.data.SessionVariable;
-import com.example.iriscollectormobile.databinding.ActivityCameraBinding;
-import com.example.iriscollectormobile.util.ViewModelFactory;
+import com.example.MyMealRecord.MainActivity;
+import com.example.MyMealRecord.R;
+import com.example.MyMealRecord.data.SessionVariable;
+import com.example.MyMealRecord.databinding.ActivityCameraBinding;
+import com.example.MyMealRecord.util.ViewModelFactory;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.common.util.concurrent.ListenableFuture;
 

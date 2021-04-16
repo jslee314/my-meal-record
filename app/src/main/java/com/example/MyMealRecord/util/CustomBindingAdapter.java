@@ -1,4 +1,4 @@
-package com.example.iriscollectormobile.util;
+package com.example.MyMealRecord.util;
 
 import android.graphics.Bitmap;
 import android.widget.ImageView;

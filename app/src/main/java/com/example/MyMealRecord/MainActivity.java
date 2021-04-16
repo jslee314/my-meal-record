@@ -1,15 +1,14 @@
-package com.example.iriscollectormobile;
+package com.example.MyMealRecord;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
 
-import com.example.iriscollectormobile.data.ConstantVariable;
-import com.example.iriscollectormobile.data.SessionVariable;
-import com.example.iriscollectormobile.data.UserHistory;
-import com.example.iriscollectormobile.data.UserHistoryAdapter;
-import com.example.iriscollectormobile.databinding.ActivityMainBinding;
-import com.example.iriscollectormobile.util.ViewModelFactory;
+import com.example.MyMealRecord.data.ConstantVariable;
+import com.example.MyMealRecord.data.SessionVariable;
+import com.example.MyMealRecord.data.UserHistory;
+import com.example.MyMealRecord.data.UserHistoryAdapter;
+import com.example.MyMealRecord.databinding.ActivityMainBinding;
+import com.example.MyMealRecord.util.ViewModelFactory;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;

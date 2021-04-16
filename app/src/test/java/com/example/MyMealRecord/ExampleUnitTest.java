@@ -1,4 +1,4 @@
-package com.example.iriscollectormobile;
+package com.example.MyMealRecord;
 
 import org.junit.Test;
 

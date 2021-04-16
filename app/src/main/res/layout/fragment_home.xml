@@ -5,10 +5,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:bind="http://schemas.android.com/apk/res-auto">
     <data>
-        <import type="com.example.iriscollectormobile.R" />
+        <import type="com.example.MyMealRecord.R" />
         <variable
             name="viewModel"
-            type="com.example.iriscollectormobile.MainViewModel"/>
+            type="com.example.MyMealRecord.MainViewModel"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
