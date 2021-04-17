@@ -1,34 +1,33 @@
 {
   "project_info": {
-    "project_number": "475839989801",
-    "firebase_url": "https://iriscollectormobile.firebaseio.com",
-    "project_id": "iriscollectormobile",
-    "storage_bucket": "iriscollectormobile.appspot.com"
+    "project_number": "107819760565",
+    "project_id": "mymealrecord",
+    "storage_bucket": "mymealrecord.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:475839989801:android:afaa208d61bf120d14f438",
+        "mobilesdk_app_id": "1:107819760565:android:65443d0de75ad0dc76f7fc",
         "android_client_info": {
-          "package_name": "com.example.iriscollectormobile"
+          "package_name": "com.example.MyMealRecord"
         }
       },
       "oauth_client": [
         {
-          "client_id": "475839989801-nd5sdb3lrl1dhbsmvne04nieuom2ogp9.apps.googleusercontent.com",
+          "client_id": "107819760565-g80ocj7q7o7srauchp3c0qc6jsgp649a.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCozhNPf8IVFSeThQRt1xeK0CSDW2Crg4Q"
+          "current_key": "AIzaSyDCGvSg1kDJhOy_5WgpaRCCKdex9bjeAwU"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "475839989801-nd5sdb3lrl1dhbsmvne04nieuom2ogp9.apps.googleusercontent.com",
+              "client_id": "107819760565-g80ocj7q7o7srauchp3c0qc6jsgp649a.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

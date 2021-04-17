@@ -1,4 +1,4 @@
-package com.example.MyMealRecord.util;
+package com.example.mymealrecord.util;
 
 import android.graphics.Bitmap;
 import android.widget.ImageView;

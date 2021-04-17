@@ -1,4 +1,4 @@
-package com.example.MyMealRecord.ui;
+package com.example.mymealrecord.ui;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,10 +13,10 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 
-import com.example.MyMealRecord.MainActivity;
-import com.example.MyMealRecord.MainViewModel;
-import com.example.MyMealRecord.R;
-import com.example.MyMealRecord.databinding.FragmentSettingsBinding;
+import com.example.mymealrecord.MainActivity;
+import com.example.mymealrecord.MainViewModel;
+import com.example.mymealrecord.R;
+import com.example.mymealrecord.databinding.FragmentSettingsBinding;
 import com.firebase.ui.auth.AuthUI;
 
 public class SettingsFragment extends Fragment {

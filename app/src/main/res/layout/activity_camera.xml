@@ -7,7 +7,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.MyMealRecord.camera.CameraViewModel"/>
+            type="com.example.mymealrecord.camera.CameraViewModel"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

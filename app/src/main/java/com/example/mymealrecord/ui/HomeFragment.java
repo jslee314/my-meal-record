@@ -1,4 +1,4 @@
-package com.example.MyMealRecord.ui;
+package com.example.mymealrecord.ui;
 
 import android.content.Context;
 import android.content.Intent;
@@ -21,13 +21,13 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 
-import com.example.MyMealRecord.camera.CameraActivity;
-import com.example.MyMealRecord.MainActivity;
-import com.example.MyMealRecord.MainViewModel;
-import com.example.MyMealRecord.R;
-import com.example.MyMealRecord.data.ConstantVariable;
-import com.example.MyMealRecord.data.SessionVariable;
-import com.example.MyMealRecord.databinding.FragmentHomeBinding;
+import com.example.mymealrecord.camera.CameraActivity;
+import com.example.mymealrecord.MainActivity;
+import com.example.mymealrecord.MainViewModel;
+import com.example.mymealrecord.R;
+import com.example.mymealrecord.data.ConstantVariable;
+import com.example.mymealrecord.data.SessionVariable;
+import com.example.mymealrecord.databinding.FragmentHomeBinding;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.UploadTask;
 
@@ -45,8 +45,10 @@ public class HomeFragment extends Fragment {
     private TextView mTextView;
     private ImageView mImViewIris;
 
-    private Button mBtnLeftEye;
-    private Button mBtnRightEye;
+    private Button mBtnBreakfast;   // Breakfast, lunch, dinner,
+    private Button mBtnLunch;
+    private Button mBtDinner;
+
     private Button mBtnSubmit;
     private EditText mEditTextUserHistoryName;
     private EditText mEditTextUserHistoryEmail;
@@ -72,21 +74,32 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        mBtnLeftEye = binding.cameraButtonLeft;
-        mBtnLeftEye.setOnClickListener(new View.OnClickListener() {
+        mBtnBreakfast = binding.cameraButtonBreakfast;
+        mBtnBreakfast.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SessionVariable.side = "left";
+                SessionVariable.mealTime = "Breakfast";
                 Intent intent = new Intent(getActivity(),CameraActivity.class);
                 startActivityForResult(intent, ConstantVariable.REQUEST_CAMERA);
             }
         });
 
-        mBtnRightEye = binding.cameraButtonRight;
-        mBtnRightEye.setOnClickListener(new View.OnClickListener() {
+        mBtnLunch = binding.cameraButtonLunch;
+        mBtnLunch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SessionVariable.side = "right";
+                SessionVariable.mealTime = "Lunch";
+
+                Intent intent = new Intent(getActivity(),CameraActivity.class);
+                startActivityForResult(intent, ConstantVariable.REQUEST_CAMERA);
+            }
+        });
+
+        mBtDinner = binding.cameraButtonDinner;
+        mBtDinner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SessionVariable.mealTime = "Dinner";
 
                 Intent intent = new Intent(getActivity(),CameraActivity.class);
                 startActivityForResult(intent, ConstantVariable.REQUEST_CAMERA);

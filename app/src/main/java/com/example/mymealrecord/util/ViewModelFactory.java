@@ -1,4 +1,4 @@
-package com.example.MyMealRecord.util;
+package com.example.mymealrecord.util;
 
 import android.annotation.SuppressLint;
 import android.app.Application;
@@ -6,8 +6,8 @@ import android.app.Application;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.MyMealRecord.camera.CameraViewModel;
-import com.example.MyMealRecord.MainViewModel;
+import com.example.mymealrecord.camera.CameraViewModel;
+import com.example.mymealrecord.MainViewModel;
 
 public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory{
 

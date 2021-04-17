@@ -1,4 +1,4 @@
-package com.example.MyMealRecord.camera;
+package com.example.mymealrecord.camera;
 
 import android.app.Application;
 

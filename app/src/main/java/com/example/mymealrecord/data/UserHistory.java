@@ -1,4 +1,4 @@
-package com.example.MyMealRecord.data;
+package com.example.mymealrecord.data;
 
 import lombok.Getter;
 import lombok.Setter;

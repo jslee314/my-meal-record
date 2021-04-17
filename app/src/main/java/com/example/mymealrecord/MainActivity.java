@@ -1,14 +1,14 @@
-package com.example.MyMealRecord;
+package com.example.mymealrecord;
 
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.example.MyMealRecord.data.ConstantVariable;
-import com.example.MyMealRecord.data.SessionVariable;
-import com.example.MyMealRecord.data.UserHistory;
-import com.example.MyMealRecord.data.UserHistoryAdapter;
-import com.example.MyMealRecord.databinding.ActivityMainBinding;
-import com.example.MyMealRecord.util.ViewModelFactory;
+import com.example.mymealrecord.data.ConstantVariable;
+import com.example.mymealrecord.data.SessionVariable;
+import com.example.mymealrecord.data.UserHistory;
+import com.example.mymealrecord.data.UserHistoryAdapter;
+import com.example.mymealrecord.databinding.ActivityMainBinding;
+import com.example.mymealrecord.util.ViewModelFactory;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;

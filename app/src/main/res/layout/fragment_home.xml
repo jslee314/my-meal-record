@@ -5,10 +5,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:bind="http://schemas.android.com/apk/res-auto">
     <data>
-        <import type="com.example.MyMealRecord.R" />
+        <import type="com.example.mymealrecord.R" />
         <variable
             name="viewModel"
-            type="com.example.MyMealRecord.MainViewModel"/>
+            type="com.example.mymealrecord.MainViewModel"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -62,26 +62,34 @@
             android:id="@+id/camera_button_side"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:checkedButton="@id/camera_button_right"
+            app:checkedButton="@id/camera_button_lunch"
             app:layout_constraintBottom_toTopOf="@+id/userHistoryName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iris_img"
             app:singleSelection="true">
             <Button
-                android:id="@+id/camera_button_left"
-                android:layout_width="wrap_content"
+                android:id="@+id/camera_button_breakfast"
+                android:layout_width="135dp"
                 android:layout_height="wrap_content"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:text="LEFT EYE"
+                android:text="breakfast"
                 android:textSize="16dp" />
 
             <Button
-                android:id="@+id/camera_button_right"
-                android:layout_width="wrap_content"
+                android:id="@+id/camera_button_lunch"
+                android:layout_width="135dp"
                 android:layout_height="wrap_content"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:text="RIGHT EYE"
+                android:text="lunch"
+                android:textSize="16dp" />
+
+            <Button
+                android:id="@+id/camera_button_dinner"
+                android:layout_width="135dp"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:text="dinner"
                 android:textSize="16dp" />
         </com.google.android.material.button.MaterialButtonToggleGroup>
 

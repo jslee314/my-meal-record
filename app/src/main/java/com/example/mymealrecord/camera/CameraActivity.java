@@ -1,4 +1,4 @@
-package com.example.MyMealRecord.camera;
+package com.example.mymealrecord.camera;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -44,11 +44,11 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.MyMealRecord.MainActivity;
-import com.example.MyMealRecord.R;
-import com.example.MyMealRecord.data.SessionVariable;
-import com.example.MyMealRecord.databinding.ActivityCameraBinding;
-import com.example.MyMealRecord.util.ViewModelFactory;
+import com.example.mymealrecord.MainActivity;
+import com.example.mymealrecord.R;
+import com.example.mymealrecord.data.SessionVariable;
+import com.example.mymealrecord.databinding.ActivityCameraBinding;
+import com.example.mymealrecord.util.ViewModelFactory;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.common.util.concurrent.ListenableFuture;
 

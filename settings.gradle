@@ -1,2 +1,2 @@
 include ':app'
-rootProject.name = "irisCollectorMobile"
+rootProject.name = "MyMealRecord"

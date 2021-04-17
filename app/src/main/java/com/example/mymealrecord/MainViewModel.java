@@ -1,4 +1,4 @@
-package com.example.MyMealRecord;
+package com.example.mymealrecord;
 
 import android.app.Application;
 import android.graphics.Bitmap;
@@ -10,9 +10,9 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.MyMealRecord.data.SessionVariable;
-import com.example.MyMealRecord.data.UserHistory;
-import com.example.MyMealRecord.data.UserHistoryAdapter;
+import com.example.mymealrecord.data.SessionVariable;
+import com.example.mymealrecord.data.UserHistory;
+import com.example.mymealrecord.data.UserHistoryAdapter;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -174,7 +174,7 @@ public class MainViewModel extends AndroidViewModel {
                 SimpleDateFormat mDateFormat = new SimpleDateFormat("yyyy.MM.dd(HH:mm:ss)", Locale.KOREA);
                 String date =  mDateFormat.format(new Date());
 
-                UserHistory userHistory = new UserHistory(getUserHistoryName().getValue(),getUserHistoryEmail().getValue() ,SessionVariable.side, uri.toString(), date);
+                UserHistory userHistory = new UserHistory(getUserHistoryName().getValue(),getUserHistoryEmail().getValue() ,SessionVariable.mealTime, uri.toString(), date);
                 mUserHistoryDatabaseReference.push().setValue(userHistory);
 
             }

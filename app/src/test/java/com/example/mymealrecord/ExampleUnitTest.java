@@ -1,4 +1,4 @@
-package com.example.MyMealRecord;
+package com.example.mymealrecord;
 
 import org.junit.Test;
 
