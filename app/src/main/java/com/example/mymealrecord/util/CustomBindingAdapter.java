@@ -11,11 +11,11 @@ public abstract class CustomBindingAdapter {
 
 
     /**
-     * @내용 : bitmap 가 있으면 imageView 에 설정 하고
-     *          없으면 defaultResourceId 를 imageView 에 설정 한다.
-     * @수정 :
-     * @버젼 : 1.0.0
-     **/
+    * @내용  :  bitmap 가 있으면 imageView 에 설정 하고
+     *      *          없으면 defaultResourceId 를 imageView 에 설정 한다.
+    * @작성일 : 2020/12/17
+    * @작성자 : 이재선
+    **/
     @BindingAdapter(value = {"bind:setBitmap", "bind:setDefaultResourceId"}, requireAll = false)
     public static void setBitmap(ImageView imageView, @Nullable Bitmap bitmap, int defaultResourceId) {
         if (bitmap == null) {

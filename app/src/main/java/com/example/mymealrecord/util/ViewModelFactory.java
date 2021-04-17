@@ -29,10 +29,11 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory{
         return INSTANCE;
     }
 
-
     /**
-     * 요청들어온 modelClass 에 맞는 ViewModel 객체를 생성해서 리턴시켜주는 함수 (싱글톤으로 처리)
-     **/
+    * @내용  : 요청들어온 modelClass 에 맞는 ViewModel 객체를 생성해서 리턴시켜주는 함수 (싱글톤으로 처리)
+    * @작성일 : 2021/04/17
+    * @작성자 : 이재선
+    **/
     @Override
     public <T extends ViewModel> T create(Class<T> modelClass) {
         if (modelClass.isAssignableFrom(MainViewModel.class)) {
