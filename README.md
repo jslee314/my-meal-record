@@ -32,4 +32,4 @@
 
 ## 3. 기타
 - material 디자인
-- CustomListView
+- CustomListView(Adapter)
