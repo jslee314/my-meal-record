@@ -12,7 +12,7 @@
 - cameraX
 
 ## 2. Firebase
-- Realtime Database: 앱데이터 실시간동기화(인터넷 연결 안됫을때 저장된 데이터도 동기화)
+- Realtime Database: 앱데이터 실시간동기화(인터넷 연결 안 되었을 때 저장된 데이터도 동기화)
 
 
 
