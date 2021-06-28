@@ -22,7 +22,7 @@
 
 
 
-[블로그 설명보러가기](https://jade314.tistory.com/entry/Firebase-Cloud-storage-%ED%8C%8C%EC%9D%B4%EC%96%B4%EB%B2%A0%EC%9D%B4%EC%8A%A4-%ED%81%B4%EB%9D%BC%EC%9A%B0%EB%93%9C-%EC%A0%80%EC%9E%A5%EC%86%8C-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0)
+[블로그 설명 보러가기](https://jade314.tistory.com/entry/Firebase-Cloud-storage-%ED%8C%8C%EC%9D%B4%EC%96%B4%EB%B2%A0%EC%9D%B4%EC%8A%A4-%ED%81%B4%EB%9D%BC%EC%9A%B0%EB%93%9C-%EC%A0%80%EC%9E%A5%EC%86%8C-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0)
 
 - Authentication: 사용자 인증(기기에 구애받지 않음)
 
