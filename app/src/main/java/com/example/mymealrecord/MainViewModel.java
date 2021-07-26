@@ -11,7 +11,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.mymealrecord.data.SessionVariable;
-import com.example.mymealrecord.data.UserHistory;
+import com.example.mymealrecord.data.Meals;
 import com.example.mymealrecord.data.UserHistoryAdapter;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -44,8 +44,7 @@ public class MainViewModel extends AndroidViewModel {
     private String userName;
 
     // UserHistory 관련 멤버변수
-    private MutableLiveData<String> userHistoryName;
-    private MutableLiveData<String> userHistoryEmail;
+    Meals mMeals;
     private MutableLiveData<Bitmap> homeIrisImageBitmap;
 
     private Uri irisFirebaseStorageUri;
@@ -70,9 +69,6 @@ public class MainViewModel extends AndroidViewModel {
         homeText = new MutableLiveData<>();
         dashboardText = new MutableLiveData<>();
         settingsText = new MutableLiveData<>();
-
-        userHistoryName = new MutableLiveData<>();
-        userHistoryEmail = new MutableLiveData<>();
 
         homeIrisImageBitmap = new MutableLiveData<>();
 
@@ -101,7 +97,7 @@ public class MainViewModel extends AndroidViewModel {
 
     public void initFirebaseStorage(){
         mFirebaseStorage = FirebaseStorage.getInstance();       // Storage관련 클래스의 인스턴스
-        mIrisPhogosStorageReference = mFirebaseStorage.getReference().child("iris_photos");
+        mIrisPhogosStorageReference = mFirebaseStorage.getReference().child("meal_photos"); // 콘솔에 만든 파일(컬렉션) 이름: "meal_photos"
     }
 
     public void DataSet(){
@@ -138,7 +134,7 @@ public class MainViewModel extends AndroidViewModel {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                     // 새 메시지가 삽입될때마다 호출. 리스너를 처음 연결할때 모든 Child 메시지에대해 이 메서드가 호출됨
-                    UserHistory userHistory = snapshot.getValue(UserHistory.class);
+                    Meals userHistory = snapshot.getValue(Meals.class);
                     getUserHistoryAdapter().add(userHistory);
                 }
                 @Override
@@ -174,13 +170,32 @@ public class MainViewModel extends AndroidViewModel {
                 SimpleDateFormat mDateFormat = new SimpleDateFormat("yyyy.MM.dd(HH:mm:ss)", Locale.KOREA);
                 String date =  mDateFormat.format(new Date());
 
-                UserHistory userHistory = new UserHistory(getUserHistoryName().getValue(),getUserHistoryEmail().getValue() ,SessionVariable.mealTime, uri.toString(), date);
+                /**
+                 *     String mealImageUrl;
+                 *     String mealTime;
+                 *     String foodMemo;
+                 *     Integer Calorie;
+                 *     Integer Rating;
+                 *     String acquisitionDate;
+                 */
+                Log.d("jjslee", "getFoodMemo" + mMeals.getFoodMemo());
+                Log.d("jjslee", "getCalorie" + mMeals.getCalorie());
+                Log.d("jjslee", "getRating" + mMeals.getRating());
+
+                Meals userHistory = new Meals(
+                        uri.toString(),
+                        SessionVariable.mealTime,
+                        mMeals.getFoodMemo(),
+                        mMeals.getCalorie(),
+                        mMeals.getRating(),
+                        date);
                 mUserHistoryDatabaseReference.push().setValue(userHistory);
 
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {
+                Log.d("jjslee", "exception: "+ exception.toString());
                 // Handle any errors
             }
         });

@@ -14,9 +14,9 @@ import com.bumptech.glide.Glide;
 import com.example.mymealrecord.R;
 import java.util.List;
 
-public class UserHistoryAdapter extends ArrayAdapter<UserHistory> {
+public class UserHistoryAdapter extends ArrayAdapter<Meals> {
 
-    public UserHistoryAdapter(@NonNull Context context, int resource, List<UserHistory> objects) {
+    public UserHistoryAdapter(@NonNull Context context, int resource, List<Meals> objects) {
         super(context, resource, objects);
     }
 
@@ -31,22 +31,22 @@ public class UserHistoryAdapter extends ArrayAdapter<UserHistory> {
         TextView nameTextView = (TextView) convertView.findViewById(R.id.nameTextView);
         TextView sideTextView = (TextView) convertView.findViewById(R.id.sideTextView);
 
-        UserHistory userHistory = getItem(position);
+        Meals userHistory = getItem(position);
 
-        boolean isPhoto = userHistory.getIrisImageUrl() != null;
+        boolean isPhoto = userHistory.getMealImageUrl() != null;
         if (isPhoto) {
             dateTextView.setVisibility(View.GONE);
             photoImageView.setVisibility(View.VISIBLE);
             Glide.with(photoImageView.getContext())
-                    .load(userHistory.getIrisImageUrl())
+                    .load(userHistory.getMealImageUrl())
                     .into(photoImageView);
         } else {
             dateTextView.setVisibility(View.VISIBLE);
             photoImageView.setVisibility(View.GONE);
             dateTextView.setText(userHistory.getAcquisitionDate());
         }
-        nameTextView.setText(userHistory.getUserHistoryName());
-        sideTextView.setText(userHistory.getIrisSide());
+        nameTextView.setText(userHistory.getRating().toString());
+        sideTextView.setText(userHistory.getMealTime());
 
         return convertView;
     }

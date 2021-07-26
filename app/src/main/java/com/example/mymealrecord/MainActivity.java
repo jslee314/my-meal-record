@@ -2,10 +2,11 @@ package com.example.mymealrecord;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.example.mymealrecord.data.ConstantVariable;
 import com.example.mymealrecord.data.SessionVariable;
-import com.example.mymealrecord.data.UserHistory;
+import com.example.mymealrecord.data.Meals;
 import com.example.mymealrecord.data.UserHistoryAdapter;
 import com.example.mymealrecord.databinding.ActivityMainBinding;
 import com.example.mymealrecord.util.ViewModelFactory;
@@ -47,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         // authentication 관련 클래스의 인스턴스
         mViewModel.mFirebaseAuth = FirebaseAuth.getInstance();
 
-        List<UserHistory> userHistories = new ArrayList<>();
+        List<Meals> userHistories = new ArrayList<>();
         mViewModel.userHistoryAdapter = new UserHistoryAdapter(this, R.layout.item_userhistory, userHistories);
 
         /** 네비게이션 관련 */
@@ -114,18 +115,18 @@ public class MainActivity extends AppCompatActivity {
         /** AuthUI 로직 실행 후 결과 반환에 따른 실행 */
         if(requestCode == RC_SIGN_IN){
             if(resultCode == RESULT_OK){
-//                Toast.makeText(this, "로그인 성공", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "로그인 성공", Toast.LENGTH_SHORT).show();
             } else if(resultCode == RESULT_CANCELED){
-//                Toast.makeText(this, "로그인 실패", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "로그인 실패", Toast.LENGTH_SHORT).show();
             }
         }
         /** CameraActivity 실행 후 사진 촬영 후 결과 반환에 따른 실행 */
         if (requestCode == ConstantVariable.REQUEST_CAMERA) {
             if (resultCode == RESULT_OK) {
-//                Toast.makeText(this, "촬영 성공", Toast.LENGTH_SHORT).show();
-                mViewModel.getHomeIrisImageBitmap().setValue(SessionVariable.irisImage);
+                Toast.makeText(this, "촬영 성공", Toast.LENGTH_SHORT).show();
+                mViewModel.getHomeIrisImageBitmap().setValue(SessionVariable.mealBitmapImg);
             }else if(resultCode == RESULT_CANCELED){
-//                Toast.makeText(this, "촬영 실패", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "촬영 실패", Toast.LENGTH_SHORT).show();
             }
         }
     }

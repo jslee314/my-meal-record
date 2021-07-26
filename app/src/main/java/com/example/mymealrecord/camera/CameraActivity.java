@@ -232,7 +232,7 @@ public class CameraActivity extends AppCompatActivity {
                 @Override
                 public void onCaptureSuccess(@NonNull ImageProxy image) {
                     Bitmap bitmapImage = imageProxyToBitmap(image);
-                    SessionVariable.irisImage = bitmapImage;
+                    SessionVariable.mealBitmapImg = bitmapImage;
 
                     Intent intent = new Intent(CameraActivity.this, MainActivity.class);
                     startActivity(intent);

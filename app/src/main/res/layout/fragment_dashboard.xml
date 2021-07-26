@@ -14,7 +14,7 @@
         tools:context=".ui.DashboardFragment">
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/vertical_title_guideline"
+            android:id="@+id/horizontal_title_guideline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -27,7 +27,7 @@
             android:layout_marginBottom="6dp"
             android:textAlignment="center"
             android:textSize="24dp"
-            app:layout_constraintBottom_toTopOf="@+id/vertical_title_guideline"
+            app:layout_constraintBottom_toTopOf="@+id/horizontal_title_guideline"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"/>
 
@@ -41,7 +41,7 @@
             android:outlineSpotShadowColor="@color/colorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/vertical_title_guideline" />
+            app:layout_constraintBottom_toTopOf="@+id/horizontal_title_guideline" />
 
         <ListView
             android:id="@+id/listView_userHistory"

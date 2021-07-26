@@ -2,8 +2,12 @@ package com.example.mymealrecord.util;
 
 import android.graphics.Bitmap;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 
 import androidx.databinding.BindingAdapter;
+import androidx.databinding.InverseBindingListener;
+
+import com.bumptech.glide.RequestManager;
 
 import javax.annotation.Nullable;
 
@@ -26,4 +30,34 @@ public abstract class CustomBindingAdapter {
         }
     }
 
+    @BindingAdapter(value = {"rating"})
+    public static void setRating(RatingBar view, float value) {
+        if (view == null) {
+            return;
+        }
+        float rating = view.getRating();
+        if (rating == value) {
+            return;
+        }
+        //model->view
+        view.setRating(value);
+    }
+
+//    @BindingAdapter(value = {"onRatingChanged"}, requireAll = false)
+//    public static void setListeners(RatingBar view, final RatingBar.OnRatingBarChangeListener listener,
+//                                    final InverseBindingListener ratingChange) {
+//        if (ratingChange == null) {
+//            view.setOnRatingBarChangeListener(listener);
+//        } else {
+//            view.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+//                @Override
+//                public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+//                    if (listener != null) {
+//                        listener.onRatingChanged(ratingBar, rating, fromUser);
+//                    }
+//                    ratingChange.onChange();
+//                }
+//            });
+//        }
+//    }
 }

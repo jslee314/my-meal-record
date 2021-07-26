@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RatingBar;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -66,7 +68,7 @@ public class HomeFragment extends Fragment {
         mViewModel.initFirebaseStorage();
 
         mTextView = binding.textHome;
-        mViewModel.getHomeText().setValue("홍채 촬영 후 'SUBMIT'클릭"); // commit test
+        mViewModel.getHomeText().setValue("음식을 촬영 후 'SUBMIT' 클릭"); // commit test
         mViewModel.getHomeText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
@@ -110,40 +112,60 @@ public class HomeFragment extends Fragment {
         mBtnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(SessionVariable.irisImage==null){
+                if(SessionVariable.mealBitmapImg ==null){
                     Toast.makeText(getContext(), "사진을 먼저 촬영하세요", Toast.LENGTH_LONG).show();
                     return;
                 }
-                Uri irisUri = getImageUri(getActivity().getApplicationContext(), SessionVariable.irisImage);
+                Uri irisUri = getImageUri(getActivity().getApplicationContext(), SessionVariable.mealBitmapImg);
                 uploadFirebaseStorage(irisUri);
             }
         });
         mImViewIris = binding.irisImg;
 
-        mEditTextUserHistoryName = binding.userHistoryName;
-        mViewModel.getUserHistoryName().setValue(mEditTextUserHistoryName.getText().toString());
-        mViewModel.getUserHistoryName().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                mEditTextUserHistoryName.setText(s);
+        binding.seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                //binding.seekBarTxt.setText("onStop TrackingTouch");
+            }
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                //binding.seekBarTxt.setText("onStart TrackingTouch");
+            }
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                binding.seekBarTxt.setText(" " + progress);
             }
         });
 
-        mEditTextUserHistoryEmail = binding.userHistoryEmail;
-        mViewModel.getUserHistoryEmail().setValue(mEditTextUserHistoryName.getText().toString());
-        mViewModel.getUserHistoryEmail().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                mEditTextUserHistoryEmail.setText(s);
-            }
+
+        binding.ratingBar.setOnRatingBarChangeListener((ratingBar, rating, fromUser) -> {
+            binding.ratingBarTxt.setText(" " + rating);
         });
+
+
+
+//        mEditTextUserHistoryName = binding.userHistoryName;
+//        mViewModel.getUserHistoryName().setValue(mEditTextUserHistoryName.getText().toString());
+//        mViewModel.getUserHistoryName().observe(getViewLifecycleOwner(), new Observer<String>() {
+//            @Override
+//            public void onChanged(@Nullable String s) {
+//                mEditTextUserHistoryName.setText(s);
+//            }
+//        });
+//
+//        mEditTextUserHistoryEmail = binding.userHistoryEmail;
+//        mViewModel.getUserHistoryEmail().setValue(mEditTextUserHistoryEmail.getText().toString());
+//        mViewModel.getUserHistoryEmail().observe(getViewLifecycleOwner(), new Observer<String>() {
+//            @Override
+//            public void onChanged(@Nullable String s) {
+//                mEditTextUserHistoryEmail.setText(s);
+//            }
+//        });
+
         return binding.getRoot();
     }
 
     @Override
     public void onResume() {
-        if(SessionVariable.irisImage != null){
-            mImViewIris.setImageBitmap(SessionVariable.irisImage);
+        if(SessionVariable.mealBitmapImg != null){
+            mImViewIris.setImageBitmap(SessionVariable.mealBitmapImg);
         }
         super.onResume();
     }

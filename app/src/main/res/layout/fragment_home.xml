@@ -16,13 +16,6 @@
         android:layout_height="match_parent"
         tools:context=".ui.HomeFragment">
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/vertical_title_guideline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.12" />
-
         <TextView
             android:id="@+id/text_home"
             android:layout_width="match_parent"
@@ -30,7 +23,7 @@
             android:layout_marginBottom="6dp"
             android:textAlignment="center"
             android:textSize="24dp"
-            app:layout_constraintBottom_toTopOf="@+id/vertical_title_guideline"
+            app:layout_constraintBottom_toTopOf="@+id/horizontal_title_guideline"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -44,16 +37,17 @@
             android:outlineSpotShadowColor="@color/colorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/vertical_title_guideline" />
+            app:layout_constraintBottom_toTopOf="@+id/horizontal_title_guideline" />
 
         <ImageView
             android:id="@+id/iris_img"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginTop="10dp"
             app:layout_constraintDimensionRatio="4:3"
             app:layout_constraintBottom_toTopOf="@+id/camera_button_side"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/vertical_right_guideline"
+            app:layout_constraintStart_toStartOf="@+id/vertical_left_guideline"
             app:layout_constraintTop_toBottomOf="@+id/title_line"
             bind:setBitmap="@{viewModel.homeIrisImageBitmap}"
             bind:setDefaultResourceId="@{R.drawable.no_image}"/>
@@ -62,12 +56,14 @@
             android:id="@+id/camera_button_side"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             app:checkedButton="@id/camera_button_lunch"
             app:layout_constraintBottom_toTopOf="@+id/userHistoryName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iris_img"
             app:singleSelection="true">
+
             <Button
                 android:id="@+id/camera_button_breakfast"
                 android:layout_width="135dp"
@@ -97,45 +93,118 @@
             android:id="@+id/userHistoryName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
-            android:textSize="16dp"
-            android:hint="@string/prompt_name"
+            android:layout_marginTop="10dp"
+            android:hint="@string/prompt_memo"
             android:inputType="textPersonName"
             android:selectAllOnFocus="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/userHistoryEmail"
+            android:text="@={viewModel.mMeals.foodMemo}"
+            android:textSize="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/seekBarTxtTitle"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintEnd_toEndOf="@+id/vertical_right_guideline"
+            app:layout_constraintStart_toStartOf="@+id/vertical_left_guideline"
             app:layout_constraintTop_toBottomOf="@id/camera_button_side" />
 
-        <EditText
-            android:id="@+id/userHistoryEmail"
+        <TextView
+            android:id="@+id/seekBarTxtTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="섭취 칼로리: "
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            app:layout_constraintBottom_toTopOf="@+id/seekBar"
+            app:layout_constraintEnd_toStartOf="@+id/seekBarTxt"
+            app:layout_constraintStart_toStartOf="@+id/vertical_left_guideline"
+            app:layout_constraintTop_toBottomOf="@id/userHistoryName" />
+
+        <TextView
+            android:id="@+id/seekBarTxt"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
-            android:textSize="16dp"
-            android:hint="@string/prompt_email"
-            android:inputType="textEmailAddress"
-            android:selectAllOnFocus="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:text=""
+            app:layout_constraintEnd_toEndOf="@+id/vertical_right_guideline"
+            app:layout_constraintStart_toEndOf="@+id/seekBarTxtTitle"
+            app:layout_constraintBottom_toBottomOf="@+id/seekBarTxtTitle"
+            app:layout_constraintTop_toTopOf="@id/seekBarTxtTitle"/>
+
+        <SeekBar
+            android:id="@+id/seekBar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:max="1000"
+            android:progress="30"
+            app:layout_constraintEnd_toEndOf="@+id/vertical_right_guideline"
+            app:layout_constraintStart_toStartOf="@+id/vertical_left_guideline"
+            app:layout_constraintBottom_toTopOf="@+id/ratingBarTxtTitle"
+            app:layout_constraintTop_toBottomOf="@id/seekBarTxtTitle" />
+
+        <TextView
+            android:id="@+id/ratingBarTxtTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="영양 성분 평가"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            app:layout_constraintBottom_toTopOf="@+id/ratingBar"
+            app:layout_constraintEnd_toStartOf="@+id/ratingBarTxt"
+            app:layout_constraintStart_toStartOf="@+id/vertical_left_guideline"
+            app:layout_constraintTop_toBottomOf="@id/seekBar" />
+
+        <TextView
+            android:id="@+id/ratingBarTxt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@{viewModel.mMeals.rating.toString()}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            app:layout_constraintBottom_toBottomOf="@+id/ratingBarTxtTitle"
+            app:layout_constraintEnd_toEndOf="@+id/vertical_right_guideline"
+            app:layout_constraintStart_toEndOf="@+id/ratingBarTxtTitle"
+            app:layout_constraintTop_toTopOf="@id/ratingBarTxtTitle" />
+
+        <RatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:stepSize="1"
+            android:isIndicator="false"
+            style="@style/Widget.AppCompat.RatingBar.Indicator"
+            app:layout_constraintEnd_toEndOf="@+id/vertical_right_guideline"
+            app:layout_constraintStart_toStartOf="@+id/vertical_left_guideline"
             app:layout_constraintBottom_toTopOf="@+id/submit_button"
-            app:layout_constraintTop_toBottomOf="@id/userHistoryName" />
+            app:layout_constraintTop_toBottomOf="@id/ratingBarTxtTitle"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/submit_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
-            android:layout_marginEnd="50dp"
             android:layout_marginTop="10dp"
             android:text="submit"
             android:textSize="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/userHistoryEmail"
+            app:layout_constraintEnd_toEndOf="@+id/vertical_right_guideline"
+            app:layout_constraintStart_toStartOf="@+id/vertical_left_guideline"
+            app:layout_constraintTop_toBottomOf="@+id/ratingBar"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/horizontal_title_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.12" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/vertical_left_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.05" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/vertical_right_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.95" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
